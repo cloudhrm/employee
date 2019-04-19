@@ -1,6 +1,6 @@
 type Employee {
   id: ID! @unique
-  userid: String!
+  userid: String! @unique
   companyId: String
   firstName: String!
   lastName: String!
