@@ -1,0 +1,62 @@
+type Employee {
+  id: ID! @unique
+  userid: String!
+  companyId: String
+  firstName: String!
+  lastName: String!
+  livingText: String
+  livingLat: Number
+  livingLon: Number
+  about: String
+  workSince: Number
+  skills: [EmployeeSkill!]!
+  links: [Link!]!
+  experience: [Experience!]!
+  education: [Education!]!
+}
+
+type Skill {
+  id: ID! @unique
+  name: String!
+}
+
+type EmployeeSkill {
+  id: ID! @unique
+  employee: Employee!
+  skill: Skill!
+  years: Number
+}
+
+type Link {
+  id: ID! @unique
+  employee: Employee!
+  link: String!
+}
+
+type Experience {
+  id: ID! @unique
+  position: String!
+  company: String!
+  companyId: String
+  locationText: String
+  locationLat: Number
+  locationLon: Number
+  fromYear: Number
+  toYear: Number
+  current: Boolean!
+}
+
+type Education {
+  id: ID! @unique
+  employee: Employee!
+  fromYear: Number!
+  toYear: Number
+  degree: String
+  fieldOfStudy: String
+  school: String
+  schoolText: String
+  schoolLat: Number
+  schoolLon: Number
+  notes: String
+  current: Boolean!
+}
