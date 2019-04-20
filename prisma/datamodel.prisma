@@ -4,11 +4,10 @@ type Employee {
   companyId: String
   firstName: String!
   lastName: String!
-  livingText: String
-  livingLat: Number
-  livingLon: Number
+  livingLocationText: String
+  livingplaceId: Int
   about: String
-  workSince: Number
+  workSince: Int
   skills: [EmployeeSkill!]!
   links: [Link!]!
   experience: [Experience!]!
@@ -24,7 +23,7 @@ type EmployeeSkill {
   id: ID! @unique
   employee: Employee!
   skill: Skill!
-  years: Number
+  years: Int
 }
 
 type Link {
@@ -39,24 +38,22 @@ type Experience {
   company: String!
   companyId: String
   locationText: String
-  locationLat: Number
-  locationLon: Number
-  fromYear: Number
-  toYear: Number
+  locationid: Int
+  fromYear: Int
+  toYear: Int
   current: Boolean!
 }
 
 type Education {
   id: ID! @unique
   employee: Employee!
-  fromYear: Number!
-  toYear: Number
+  fromYear: Int!
+  toYear: Int
   degree: String
   fieldOfStudy: String
   school: String
-  schoolText: String
-  schoolLat: Number
-  schoolLon: Number
+  locationText: String
+  locationId: Int
   notes: String
   current: Boolean!
 }
