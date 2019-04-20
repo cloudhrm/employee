@@ -3,8 +3,6 @@
 ## TODO
 
 - implement permissions guards
-- think about nexus-prisma plugin
-- add company to token.
 
 ## Development
 
@@ -79,8 +77,14 @@ So fill up CV details to be able to apply for a position.
 
 ```
 mutation {
-  addEmployee(
+  createCV(
+    firstName: "Firstname"
+    lastName: "Lastname"
   ) {
+    employee {
+      firstName
+      lastName
+    }
   }
 }
 ```

@@ -1,1 +1,13 @@
-export const Mutation = {  }
+import { getUserId } from '../utils'
+
+async function createCV(parent, args, context, info) {
+  const userId = await getUserId(context)
+  const employee = await context.prisma.createEmployee({
+    firstName: args.firstName,
+    lastName: args.lastName,
+    userId: { connect: { id: userId } }
+  })
+  return employee
+}
+
+export const Mutation = { createCV }

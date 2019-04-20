@@ -1,3 +1,65 @@
 type Query {
   info: String!
 }
+
+type Mutation {
+  createCV(firstName: String!, lastName: String!): Employee
+}
+
+type Employee {
+  id: ID!
+  firstName: String!
+  lastName: String!
+  livingLocationText: String
+  livingplaceId: Int
+  about: String
+  workSince: Int
+  skills: [EmployeeSkill!]!
+  links: [Link!]!
+  experience: [Experience!]!
+  education: [Education!]!
+}
+
+type Skill {
+  id: ID!
+  name: String!
+}
+
+type EmployeeSkill {
+  id: ID!
+  employee: Employee!
+  skill: Skill!
+  years: Int
+}
+
+type Link {
+  id: ID!
+  employee: Employee!
+  link: String!
+}
+
+type Experience {
+  id: ID!
+  position: String!
+  company: String!
+  companyId: String
+  locationText: String
+  locationid: Int
+  fromYear: Int
+  toYear: Int
+  current: Boolean!
+}
+
+type Education {
+  id: ID!
+  employee: Employee!
+  fromYear: Int!
+  toYear: Int
+  degree: String
+  fieldOfStudy: String
+  school: String
+  locationText: String
+  locationId: Int
+  notes: String
+  current: Boolean!
+}

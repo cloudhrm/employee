@@ -18,6 +18,7 @@ export interface Exists {
   employee: (where?: EmployeeWhereInput) => Promise<boolean>;
   employeeSkill: (where?: EmployeeSkillWhereInput) => Promise<boolean>;
   experience: (where?: ExperienceWhereInput) => Promise<boolean>;
+  keyPair: (where?: KeyPairWhereInput) => Promise<boolean>;
   link: (where?: LinkWhereInput) => Promise<boolean>;
   skill: (where?: SkillWhereInput) => Promise<boolean>;
 }
@@ -117,6 +118,25 @@ export interface Prisma {
     first?: Int;
     last?: Int;
   }) => ExperienceConnectionPromise;
+  keyPair: (where: KeyPairWhereUniqueInput) => KeyPairPromise;
+  keyPairs: (args?: {
+    where?: KeyPairWhereInput;
+    orderBy?: KeyPairOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => FragmentableArray<KeyPair>;
+  keyPairsConnection: (args?: {
+    where?: KeyPairWhereInput;
+    orderBy?: KeyPairOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => KeyPairConnectionPromise;
   link: (where: LinkWhereUniqueInput) => LinkPromise;
   links: (args?: {
     where?: LinkWhereInput;
@@ -229,6 +249,22 @@ export interface Prisma {
   }) => ExperiencePromise;
   deleteExperience: (where: ExperienceWhereUniqueInput) => ExperiencePromise;
   deleteManyExperiences: (where?: ExperienceWhereInput) => BatchPayloadPromise;
+  createKeyPair: (data: KeyPairCreateInput) => KeyPairPromise;
+  updateKeyPair: (args: {
+    data: KeyPairUpdateInput;
+    where: KeyPairWhereUniqueInput;
+  }) => KeyPairPromise;
+  updateManyKeyPairs: (args: {
+    data: KeyPairUpdateManyMutationInput;
+    where?: KeyPairWhereInput;
+  }) => BatchPayloadPromise;
+  upsertKeyPair: (args: {
+    where: KeyPairWhereUniqueInput;
+    create: KeyPairCreateInput;
+    update: KeyPairUpdateInput;
+  }) => KeyPairPromise;
+  deleteKeyPair: (where: KeyPairWhereUniqueInput) => KeyPairPromise;
+  deleteManyKeyPairs: (where?: KeyPairWhereInput) => BatchPayloadPromise;
   createLink: (data: LinkCreateInput) => LinkPromise;
   updateLink: (args: {
     data: LinkUpdateInput;
@@ -282,6 +318,9 @@ export interface Subscription {
   experience: (
     where?: ExperienceSubscriptionWhereInput
   ) => ExperienceSubscriptionPayloadSubscription;
+  keyPair: (
+    where?: KeyPairSubscriptionWhereInput
+  ) => KeyPairSubscriptionPayloadSubscription;
   link: (
     where?: LinkSubscriptionWhereInput
   ) => LinkSubscriptionPayloadSubscription;
@@ -368,6 +407,12 @@ export type EmployeeOrderByInput =
   | "workSince_ASC"
   | "workSince_DESC";
 
+export type KeyPairOrderByInput =
+  | "id_ASC"
+  | "id_DESC"
+  | "public_ASC"
+  | "public_DESC";
+
 export type SkillOrderByInput = "id_ASC" | "id_DESC" | "name_ASC" | "name_DESC";
 
 export type MutationType = "CREATED" | "UPDATED" | "DELETED";
@@ -381,10 +426,143 @@ export type EducationWhereUniqueInput = AtLeastOne<{
   id: ID_Input;
 }>;
 
+export interface EmployeeSkillCreateManyWithoutEmployeeInput {
+  create?:
+    | EmployeeSkillCreateWithoutEmployeeInput[]
+    | EmployeeSkillCreateWithoutEmployeeInput;
+  connect?: EmployeeSkillWhereUniqueInput[] | EmployeeSkillWhereUniqueInput;
+}
+
+export interface EducationScalarWhereInput {
+  id?: ID_Input;
+  id_not?: ID_Input;
+  id_in?: ID_Input[] | ID_Input;
+  id_not_in?: ID_Input[] | ID_Input;
+  id_lt?: ID_Input;
+  id_lte?: ID_Input;
+  id_gt?: ID_Input;
+  id_gte?: ID_Input;
+  id_contains?: ID_Input;
+  id_not_contains?: ID_Input;
+  id_starts_with?: ID_Input;
+  id_not_starts_with?: ID_Input;
+  id_ends_with?: ID_Input;
+  id_not_ends_with?: ID_Input;
+  fromYear?: Int;
+  fromYear_not?: Int;
+  fromYear_in?: Int[] | Int;
+  fromYear_not_in?: Int[] | Int;
+  fromYear_lt?: Int;
+  fromYear_lte?: Int;
+  fromYear_gt?: Int;
+  fromYear_gte?: Int;
+  toYear?: Int;
+  toYear_not?: Int;
+  toYear_in?: Int[] | Int;
+  toYear_not_in?: Int[] | Int;
+  toYear_lt?: Int;
+  toYear_lte?: Int;
+  toYear_gt?: Int;
+  toYear_gte?: Int;
+  degree?: String;
+  degree_not?: String;
+  degree_in?: String[] | String;
+  degree_not_in?: String[] | String;
+  degree_lt?: String;
+  degree_lte?: String;
+  degree_gt?: String;
+  degree_gte?: String;
+  degree_contains?: String;
+  degree_not_contains?: String;
+  degree_starts_with?: String;
+  degree_not_starts_with?: String;
+  degree_ends_with?: String;
+  degree_not_ends_with?: String;
+  fieldOfStudy?: String;
+  fieldOfStudy_not?: String;
+  fieldOfStudy_in?: String[] | String;
+  fieldOfStudy_not_in?: String[] | String;
+  fieldOfStudy_lt?: String;
+  fieldOfStudy_lte?: String;
+  fieldOfStudy_gt?: String;
+  fieldOfStudy_gte?: String;
+  fieldOfStudy_contains?: String;
+  fieldOfStudy_not_contains?: String;
+  fieldOfStudy_starts_with?: String;
+  fieldOfStudy_not_starts_with?: String;
+  fieldOfStudy_ends_with?: String;
+  fieldOfStudy_not_ends_with?: String;
+  school?: String;
+  school_not?: String;
+  school_in?: String[] | String;
+  school_not_in?: String[] | String;
+  school_lt?: String;
+  school_lte?: String;
+  school_gt?: String;
+  school_gte?: String;
+  school_contains?: String;
+  school_not_contains?: String;
+  school_starts_with?: String;
+  school_not_starts_with?: String;
+  school_ends_with?: String;
+  school_not_ends_with?: String;
+  locationText?: String;
+  locationText_not?: String;
+  locationText_in?: String[] | String;
+  locationText_not_in?: String[] | String;
+  locationText_lt?: String;
+  locationText_lte?: String;
+  locationText_gt?: String;
+  locationText_gte?: String;
+  locationText_contains?: String;
+  locationText_not_contains?: String;
+  locationText_starts_with?: String;
+  locationText_not_starts_with?: String;
+  locationText_ends_with?: String;
+  locationText_not_ends_with?: String;
+  locationId?: Int;
+  locationId_not?: Int;
+  locationId_in?: Int[] | Int;
+  locationId_not_in?: Int[] | Int;
+  locationId_lt?: Int;
+  locationId_lte?: Int;
+  locationId_gt?: Int;
+  locationId_gte?: Int;
+  notes?: String;
+  notes_not?: String;
+  notes_in?: String[] | String;
+  notes_not_in?: String[] | String;
+  notes_lt?: String;
+  notes_lte?: String;
+  notes_gt?: String;
+  notes_gte?: String;
+  notes_contains?: String;
+  notes_not_contains?: String;
+  notes_starts_with?: String;
+  notes_not_starts_with?: String;
+  notes_ends_with?: String;
+  notes_not_ends_with?: String;
+  current?: Boolean;
+  current_not?: Boolean;
+  AND?: EducationScalarWhereInput[] | EducationScalarWhereInput;
+  OR?: EducationScalarWhereInput[] | EducationScalarWhereInput;
+  NOT?: EducationScalarWhereInput[] | EducationScalarWhereInput;
+}
+
+export interface EmployeeSkillCreateWithoutEmployeeInput {
+  skill: SkillCreateOneInput;
+  years?: Int;
+}
+
 export interface LinkUpsertWithWhereUniqueWithoutEmployeeInput {
   where: LinkWhereUniqueInput;
   update: LinkUpdateWithoutEmployeeDataInput;
   create: LinkCreateWithoutEmployeeInput;
+}
+
+export interface SkillCreateOneInput {
+  create?: SkillCreateInput;
+  connect?: SkillWhereUniqueInput;
 }
 
 export interface ExperienceWhereInput {
@@ -489,7 +667,255 @@ export interface ExperienceWhereInput {
   NOT?: ExperienceWhereInput[] | ExperienceWhereInput;
 }
 
-export interface LinkScalarWhereInput {
+export interface SkillCreateInput {
+  name: String;
+}
+
+export interface LinkSubscriptionWhereInput {
+  mutation_in?: MutationType[] | MutationType;
+  updatedFields_contains?: String;
+  updatedFields_contains_every?: String[] | String;
+  updatedFields_contains_some?: String[] | String;
+  node?: LinkWhereInput;
+  AND?: LinkSubscriptionWhereInput[] | LinkSubscriptionWhereInput;
+  OR?: LinkSubscriptionWhereInput[] | LinkSubscriptionWhereInput;
+  NOT?: LinkSubscriptionWhereInput[] | LinkSubscriptionWhereInput;
+}
+
+export interface LinkCreateManyWithoutEmployeeInput {
+  create?: LinkCreateWithoutEmployeeInput[] | LinkCreateWithoutEmployeeInput;
+  connect?: LinkWhereUniqueInput[] | LinkWhereUniqueInput;
+}
+
+export interface KeyPairSubscriptionWhereInput {
+  mutation_in?: MutationType[] | MutationType;
+  updatedFields_contains?: String;
+  updatedFields_contains_every?: String[] | String;
+  updatedFields_contains_some?: String[] | String;
+  node?: KeyPairWhereInput;
+  AND?: KeyPairSubscriptionWhereInput[] | KeyPairSubscriptionWhereInput;
+  OR?: KeyPairSubscriptionWhereInput[] | KeyPairSubscriptionWhereInput;
+  NOT?: KeyPairSubscriptionWhereInput[] | KeyPairSubscriptionWhereInput;
+}
+
+export interface LinkCreateWithoutEmployeeInput {
+  link: String;
+}
+
+export interface ExperienceSubscriptionWhereInput {
+  mutation_in?: MutationType[] | MutationType;
+  updatedFields_contains?: String;
+  updatedFields_contains_every?: String[] | String;
+  updatedFields_contains_some?: String[] | String;
+  node?: ExperienceWhereInput;
+  AND?: ExperienceSubscriptionWhereInput[] | ExperienceSubscriptionWhereInput;
+  OR?: ExperienceSubscriptionWhereInput[] | ExperienceSubscriptionWhereInput;
+  NOT?: ExperienceSubscriptionWhereInput[] | ExperienceSubscriptionWhereInput;
+}
+
+export interface ExperienceCreateManyInput {
+  create?: ExperienceCreateInput[] | ExperienceCreateInput;
+  connect?: ExperienceWhereUniqueInput[] | ExperienceWhereUniqueInput;
+}
+
+export interface EmployeeSkillSubscriptionWhereInput {
+  mutation_in?: MutationType[] | MutationType;
+  updatedFields_contains?: String;
+  updatedFields_contains_every?: String[] | String;
+  updatedFields_contains_some?: String[] | String;
+  node?: EmployeeSkillWhereInput;
+  AND?:
+    | EmployeeSkillSubscriptionWhereInput[]
+    | EmployeeSkillSubscriptionWhereInput;
+  OR?:
+    | EmployeeSkillSubscriptionWhereInput[]
+    | EmployeeSkillSubscriptionWhereInput;
+  NOT?:
+    | EmployeeSkillSubscriptionWhereInput[]
+    | EmployeeSkillSubscriptionWhereInput;
+}
+
+export interface ExperienceCreateInput {
+  position: String;
+  company: String;
+  companyId?: String;
+  locationText?: String;
+  locationid?: Int;
+  fromYear?: Int;
+  toYear?: Int;
+  current: Boolean;
+}
+
+export interface EducationSubscriptionWhereInput {
+  mutation_in?: MutationType[] | MutationType;
+  updatedFields_contains?: String;
+  updatedFields_contains_every?: String[] | String;
+  updatedFields_contains_some?: String[] | String;
+  node?: EducationWhereInput;
+  AND?: EducationSubscriptionWhereInput[] | EducationSubscriptionWhereInput;
+  OR?: EducationSubscriptionWhereInput[] | EducationSubscriptionWhereInput;
+  NOT?: EducationSubscriptionWhereInput[] | EducationSubscriptionWhereInput;
+}
+
+export interface EducationUpdateInput {
+  employee?: EmployeeUpdateOneRequiredWithoutEducationInput;
+  fromYear?: Int;
+  toYear?: Int;
+  degree?: String;
+  fieldOfStudy?: String;
+  school?: String;
+  locationText?: String;
+  locationId?: Int;
+  notes?: String;
+  current?: Boolean;
+}
+
+export type EmployeeWhereUniqueInput = AtLeastOne<{
+  id: ID_Input;
+  userid?: String;
+}>;
+
+export interface EmployeeUpdateOneRequiredWithoutEducationInput {
+  create?: EmployeeCreateWithoutEducationInput;
+  update?: EmployeeUpdateWithoutEducationDataInput;
+  upsert?: EmployeeUpsertWithoutEducationInput;
+  connect?: EmployeeWhereUniqueInput;
+}
+
+export interface LinkUpdateManyMutationInput {
+  link?: String;
+}
+
+export interface EmployeeUpdateWithoutEducationDataInput {
+  userid?: String;
+  companyId?: String;
+  firstName?: String;
+  lastName?: String;
+  livingLocationText?: String;
+  livingplaceId?: Int;
+  about?: String;
+  workSince?: Int;
+  skills?: EmployeeSkillUpdateManyWithoutEmployeeInput;
+  links?: LinkUpdateManyWithoutEmployeeInput;
+  experience?: ExperienceUpdateManyInput;
+}
+
+export interface EmployeeUpdateWithoutLinksDataInput {
+  userid?: String;
+  companyId?: String;
+  firstName?: String;
+  lastName?: String;
+  livingLocationText?: String;
+  livingplaceId?: Int;
+  about?: String;
+  workSince?: Int;
+  skills?: EmployeeSkillUpdateManyWithoutEmployeeInput;
+  experience?: ExperienceUpdateManyInput;
+  education?: EducationUpdateManyWithoutEmployeeInput;
+}
+
+export interface EmployeeSkillUpdateManyWithoutEmployeeInput {
+  create?:
+    | EmployeeSkillCreateWithoutEmployeeInput[]
+    | EmployeeSkillCreateWithoutEmployeeInput;
+  delete?: EmployeeSkillWhereUniqueInput[] | EmployeeSkillWhereUniqueInput;
+  connect?: EmployeeSkillWhereUniqueInput[] | EmployeeSkillWhereUniqueInput;
+  set?: EmployeeSkillWhereUniqueInput[] | EmployeeSkillWhereUniqueInput;
+  disconnect?: EmployeeSkillWhereUniqueInput[] | EmployeeSkillWhereUniqueInput;
+  update?:
+    | EmployeeSkillUpdateWithWhereUniqueWithoutEmployeeInput[]
+    | EmployeeSkillUpdateWithWhereUniqueWithoutEmployeeInput;
+  upsert?:
+    | EmployeeSkillUpsertWithWhereUniqueWithoutEmployeeInput[]
+    | EmployeeSkillUpsertWithWhereUniqueWithoutEmployeeInput;
+  deleteMany?: EmployeeSkillScalarWhereInput[] | EmployeeSkillScalarWhereInput;
+  updateMany?:
+    | EmployeeSkillUpdateManyWithWhereNestedInput[]
+    | EmployeeSkillUpdateManyWithWhereNestedInput;
+}
+
+export interface EmployeeUpdateOneRequiredWithoutLinksInput {
+  create?: EmployeeCreateWithoutLinksInput;
+  update?: EmployeeUpdateWithoutLinksDataInput;
+  upsert?: EmployeeUpsertWithoutLinksInput;
+  connect?: EmployeeWhereUniqueInput;
+}
+
+export interface EmployeeSkillUpdateWithWhereUniqueWithoutEmployeeInput {
+  where: EmployeeSkillWhereUniqueInput;
+  data: EmployeeSkillUpdateWithoutEmployeeDataInput;
+}
+
+export interface EmployeeCreateWithoutLinksInput {
+  userid: String;
+  companyId?: String;
+  firstName: String;
+  lastName: String;
+  livingLocationText?: String;
+  livingplaceId?: Int;
+  about?: String;
+  workSince?: Int;
+  skills?: EmployeeSkillCreateManyWithoutEmployeeInput;
+  experience?: ExperienceCreateManyInput;
+  education?: EducationCreateManyWithoutEmployeeInput;
+}
+
+export interface EmployeeSkillUpdateWithoutEmployeeDataInput {
+  skill?: SkillUpdateOneRequiredInput;
+  years?: Int;
+}
+
+export interface EmployeeCreateOneWithoutLinksInput {
+  create?: EmployeeCreateWithoutLinksInput;
+  connect?: EmployeeWhereUniqueInput;
+}
+
+export interface SkillUpdateOneRequiredInput {
+  create?: SkillCreateInput;
+  update?: SkillUpdateDataInput;
+  upsert?: SkillUpsertNestedInput;
+  connect?: SkillWhereUniqueInput;
+}
+
+export interface KeyPairUpdateManyMutationInput {
+  public?: String;
+}
+
+export interface SkillUpdateDataInput {
+  name?: String;
+}
+
+export interface KeyPairUpdateInput {
+  public?: String;
+}
+
+export interface SkillUpsertNestedInput {
+  update: SkillUpdateDataInput;
+  create: SkillCreateInput;
+}
+
+export interface KeyPairCreateInput {
+  public: String;
+}
+
+export interface EmployeeSkillUpsertWithWhereUniqueWithoutEmployeeInput {
+  where: EmployeeSkillWhereUniqueInput;
+  update: EmployeeSkillUpdateWithoutEmployeeDataInput;
+  create: EmployeeSkillCreateWithoutEmployeeInput;
+}
+
+export interface ExperienceUpdateInput {
+  position?: String;
+  company?: String;
+  companyId?: String;
+  locationText?: String;
+  locationid?: Int;
+  fromYear?: Int;
+  toYear?: Int;
+  current?: Boolean;
+}
+
+export interface EmployeeSkillScalarWhereInput {
   id?: ID_Input;
   id_not?: ID_Input;
   id_in?: ID_Input[] | ID_Input;
@@ -504,23 +930,114 @@ export interface LinkScalarWhereInput {
   id_not_starts_with?: ID_Input;
   id_ends_with?: ID_Input;
   id_not_ends_with?: ID_Input;
+  years?: Int;
+  years_not?: Int;
+  years_in?: Int[] | Int;
+  years_not_in?: Int[] | Int;
+  years_lt?: Int;
+  years_lte?: Int;
+  years_gt?: Int;
+  years_gte?: Int;
+  AND?: EmployeeSkillScalarWhereInput[] | EmployeeSkillScalarWhereInput;
+  OR?: EmployeeSkillScalarWhereInput[] | EmployeeSkillScalarWhereInput;
+  NOT?: EmployeeSkillScalarWhereInput[] | EmployeeSkillScalarWhereInput;
+}
+
+export type LinkWhereUniqueInput = AtLeastOne<{
+  id: ID_Input;
+}>;
+
+export interface EmployeeUpdateManyMutationInput {
+  userid?: String;
+  companyId?: String;
+  firstName?: String;
+  lastName?: String;
+  livingLocationText?: String;
+  livingplaceId?: Int;
+  about?: String;
+  workSince?: Int;
+}
+
+export interface EmployeeUpdateWithoutSkillsDataInput {
+  userid?: String;
+  companyId?: String;
+  firstName?: String;
+  lastName?: String;
+  livingLocationText?: String;
+  livingplaceId?: Int;
+  about?: String;
+  workSince?: Int;
+  links?: LinkUpdateManyWithoutEmployeeInput;
+  experience?: ExperienceUpdateManyInput;
+  education?: EducationUpdateManyWithoutEmployeeInput;
+}
+
+export interface EmployeeSkillUpdateManyDataInput {
+  years?: Int;
+}
+
+export type SkillWhereUniqueInput = AtLeastOne<{
+  id: ID_Input;
+}>;
+
+export interface LinkUpdateManyWithoutEmployeeInput {
+  create?: LinkCreateWithoutEmployeeInput[] | LinkCreateWithoutEmployeeInput;
+  delete?: LinkWhereUniqueInput[] | LinkWhereUniqueInput;
+  connect?: LinkWhereUniqueInput[] | LinkWhereUniqueInput;
+  set?: LinkWhereUniqueInput[] | LinkWhereUniqueInput;
+  disconnect?: LinkWhereUniqueInput[] | LinkWhereUniqueInput;
+  update?:
+    | LinkUpdateWithWhereUniqueWithoutEmployeeInput[]
+    | LinkUpdateWithWhereUniqueWithoutEmployeeInput;
+  upsert?:
+    | LinkUpsertWithWhereUniqueWithoutEmployeeInput[]
+    | LinkUpsertWithWhereUniqueWithoutEmployeeInput;
+  deleteMany?: LinkScalarWhereInput[] | LinkScalarWhereInput;
+  updateMany?:
+    | LinkUpdateManyWithWhereNestedInput[]
+    | LinkUpdateManyWithWhereNestedInput;
+}
+
+export interface EmployeeCreateWithoutSkillsInput {
+  userid: String;
+  companyId?: String;
+  firstName: String;
+  lastName: String;
+  livingLocationText?: String;
+  livingplaceId?: Int;
+  about?: String;
+  workSince?: Int;
+  links?: LinkCreateManyWithoutEmployeeInput;
+  experience?: ExperienceCreateManyInput;
+  education?: EducationCreateManyWithoutEmployeeInput;
+}
+
+export interface LinkUpdateWithWhereUniqueWithoutEmployeeInput {
+  where: LinkWhereUniqueInput;
+  data: LinkUpdateWithoutEmployeeDataInput;
+}
+
+export interface EmployeeSkillCreateInput {
+  employee: EmployeeCreateOneWithoutSkillsInput;
+  skill: SkillCreateOneInput;
+  years?: Int;
+}
+
+export interface LinkUpdateWithoutEmployeeDataInput {
   link?: String;
-  link_not?: String;
-  link_in?: String[] | String;
-  link_not_in?: String[] | String;
-  link_lt?: String;
-  link_lte?: String;
-  link_gt?: String;
-  link_gte?: String;
-  link_contains?: String;
-  link_not_contains?: String;
-  link_starts_with?: String;
-  link_not_starts_with?: String;
-  link_ends_with?: String;
-  link_not_ends_with?: String;
-  AND?: LinkScalarWhereInput[] | LinkScalarWhereInput;
-  OR?: LinkScalarWhereInput[] | LinkScalarWhereInput;
-  NOT?: LinkScalarWhereInput[] | LinkScalarWhereInput;
+}
+
+export interface EducationCreateInput {
+  employee: EmployeeCreateOneWithoutEducationInput;
+  fromYear: Int;
+  toYear?: Int;
+  degree?: String;
+  fieldOfStudy?: String;
+  school?: String;
+  locationText?: String;
+  locationId?: Int;
+  notes?: String;
+  current: Boolean;
 }
 
 export interface EducationWhereInput {
@@ -640,467 +1157,6 @@ export interface EducationWhereInput {
   NOT?: EducationWhereInput[] | EducationWhereInput;
 }
 
-export interface LinkUpdateManyWithWhereNestedInput {
-  where: LinkScalarWhereInput;
-  data: LinkUpdateManyDataInput;
-}
-
-export interface LinkWhereInput {
-  id?: ID_Input;
-  id_not?: ID_Input;
-  id_in?: ID_Input[] | ID_Input;
-  id_not_in?: ID_Input[] | ID_Input;
-  id_lt?: ID_Input;
-  id_lte?: ID_Input;
-  id_gt?: ID_Input;
-  id_gte?: ID_Input;
-  id_contains?: ID_Input;
-  id_not_contains?: ID_Input;
-  id_starts_with?: ID_Input;
-  id_not_starts_with?: ID_Input;
-  id_ends_with?: ID_Input;
-  id_not_ends_with?: ID_Input;
-  employee?: EmployeeWhereInput;
-  link?: String;
-  link_not?: String;
-  link_in?: String[] | String;
-  link_not_in?: String[] | String;
-  link_lt?: String;
-  link_lte?: String;
-  link_gt?: String;
-  link_gte?: String;
-  link_contains?: String;
-  link_not_contains?: String;
-  link_starts_with?: String;
-  link_not_starts_with?: String;
-  link_ends_with?: String;
-  link_not_ends_with?: String;
-  AND?: LinkWhereInput[] | LinkWhereInput;
-  OR?: LinkWhereInput[] | LinkWhereInput;
-  NOT?: LinkWhereInput[] | LinkWhereInput;
-}
-
-export interface ExperienceCreateManyInput {
-  create?: ExperienceCreateInput[] | ExperienceCreateInput;
-  connect?: ExperienceWhereUniqueInput[] | ExperienceWhereUniqueInput;
-}
-
-export interface EducationScalarWhereInput {
-  id?: ID_Input;
-  id_not?: ID_Input;
-  id_in?: ID_Input[] | ID_Input;
-  id_not_in?: ID_Input[] | ID_Input;
-  id_lt?: ID_Input;
-  id_lte?: ID_Input;
-  id_gt?: ID_Input;
-  id_gte?: ID_Input;
-  id_contains?: ID_Input;
-  id_not_contains?: ID_Input;
-  id_starts_with?: ID_Input;
-  id_not_starts_with?: ID_Input;
-  id_ends_with?: ID_Input;
-  id_not_ends_with?: ID_Input;
-  fromYear?: Int;
-  fromYear_not?: Int;
-  fromYear_in?: Int[] | Int;
-  fromYear_not_in?: Int[] | Int;
-  fromYear_lt?: Int;
-  fromYear_lte?: Int;
-  fromYear_gt?: Int;
-  fromYear_gte?: Int;
-  toYear?: Int;
-  toYear_not?: Int;
-  toYear_in?: Int[] | Int;
-  toYear_not_in?: Int[] | Int;
-  toYear_lt?: Int;
-  toYear_lte?: Int;
-  toYear_gt?: Int;
-  toYear_gte?: Int;
-  degree?: String;
-  degree_not?: String;
-  degree_in?: String[] | String;
-  degree_not_in?: String[] | String;
-  degree_lt?: String;
-  degree_lte?: String;
-  degree_gt?: String;
-  degree_gte?: String;
-  degree_contains?: String;
-  degree_not_contains?: String;
-  degree_starts_with?: String;
-  degree_not_starts_with?: String;
-  degree_ends_with?: String;
-  degree_not_ends_with?: String;
-  fieldOfStudy?: String;
-  fieldOfStudy_not?: String;
-  fieldOfStudy_in?: String[] | String;
-  fieldOfStudy_not_in?: String[] | String;
-  fieldOfStudy_lt?: String;
-  fieldOfStudy_lte?: String;
-  fieldOfStudy_gt?: String;
-  fieldOfStudy_gte?: String;
-  fieldOfStudy_contains?: String;
-  fieldOfStudy_not_contains?: String;
-  fieldOfStudy_starts_with?: String;
-  fieldOfStudy_not_starts_with?: String;
-  fieldOfStudy_ends_with?: String;
-  fieldOfStudy_not_ends_with?: String;
-  school?: String;
-  school_not?: String;
-  school_in?: String[] | String;
-  school_not_in?: String[] | String;
-  school_lt?: String;
-  school_lte?: String;
-  school_gt?: String;
-  school_gte?: String;
-  school_contains?: String;
-  school_not_contains?: String;
-  school_starts_with?: String;
-  school_not_starts_with?: String;
-  school_ends_with?: String;
-  school_not_ends_with?: String;
-  locationText?: String;
-  locationText_not?: String;
-  locationText_in?: String[] | String;
-  locationText_not_in?: String[] | String;
-  locationText_lt?: String;
-  locationText_lte?: String;
-  locationText_gt?: String;
-  locationText_gte?: String;
-  locationText_contains?: String;
-  locationText_not_contains?: String;
-  locationText_starts_with?: String;
-  locationText_not_starts_with?: String;
-  locationText_ends_with?: String;
-  locationText_not_ends_with?: String;
-  locationId?: Int;
-  locationId_not?: Int;
-  locationId_in?: Int[] | Int;
-  locationId_not_in?: Int[] | Int;
-  locationId_lt?: Int;
-  locationId_lte?: Int;
-  locationId_gt?: Int;
-  locationId_gte?: Int;
-  notes?: String;
-  notes_not?: String;
-  notes_in?: String[] | String;
-  notes_not_in?: String[] | String;
-  notes_lt?: String;
-  notes_lte?: String;
-  notes_gt?: String;
-  notes_gte?: String;
-  notes_contains?: String;
-  notes_not_contains?: String;
-  notes_starts_with?: String;
-  notes_not_starts_with?: String;
-  notes_ends_with?: String;
-  notes_not_ends_with?: String;
-  current?: Boolean;
-  current_not?: Boolean;
-  AND?: EducationScalarWhereInput[] | EducationScalarWhereInput;
-  OR?: EducationScalarWhereInput[] | EducationScalarWhereInput;
-  NOT?: EducationScalarWhereInput[] | EducationScalarWhereInput;
-}
-
-export interface ExperienceCreateInput {
-  position: String;
-  company: String;
-  companyId?: String;
-  locationText?: String;
-  locationid?: Int;
-  fromYear?: Int;
-  toYear?: Int;
-  current: Boolean;
-}
-
-export interface LinkUpdateManyDataInput {
-  link?: String;
-}
-
-export interface EducationUpdateInput {
-  employee?: EmployeeUpdateOneRequiredWithoutEducationInput;
-  fromYear?: Int;
-  toYear?: Int;
-  degree?: String;
-  fieldOfStudy?: String;
-  school?: String;
-  locationText?: String;
-  locationId?: Int;
-  notes?: String;
-  current?: Boolean;
-}
-
-export interface EmployeeSkillWhereInput {
-  id?: ID_Input;
-  id_not?: ID_Input;
-  id_in?: ID_Input[] | ID_Input;
-  id_not_in?: ID_Input[] | ID_Input;
-  id_lt?: ID_Input;
-  id_lte?: ID_Input;
-  id_gt?: ID_Input;
-  id_gte?: ID_Input;
-  id_contains?: ID_Input;
-  id_not_contains?: ID_Input;
-  id_starts_with?: ID_Input;
-  id_not_starts_with?: ID_Input;
-  id_ends_with?: ID_Input;
-  id_not_ends_with?: ID_Input;
-  employee?: EmployeeWhereInput;
-  skill?: SkillWhereInput;
-  years?: Int;
-  years_not?: Int;
-  years_in?: Int[] | Int;
-  years_not_in?: Int[] | Int;
-  years_lt?: Int;
-  years_lte?: Int;
-  years_gt?: Int;
-  years_gte?: Int;
-  AND?: EmployeeSkillWhereInput[] | EmployeeSkillWhereInput;
-  OR?: EmployeeSkillWhereInput[] | EmployeeSkillWhereInput;
-  NOT?: EmployeeSkillWhereInput[] | EmployeeSkillWhereInput;
-}
-
-export interface EmployeeUpdateOneRequiredWithoutEducationInput {
-  create?: EmployeeCreateWithoutEducationInput;
-  update?: EmployeeUpdateWithoutEducationDataInput;
-  upsert?: EmployeeUpsertWithoutEducationInput;
-  connect?: EmployeeWhereUniqueInput;
-}
-
-export interface ExperienceSubscriptionWhereInput {
-  mutation_in?: MutationType[] | MutationType;
-  updatedFields_contains?: String;
-  updatedFields_contains_every?: String[] | String;
-  updatedFields_contains_some?: String[] | String;
-  node?: ExperienceWhereInput;
-  AND?: ExperienceSubscriptionWhereInput[] | ExperienceSubscriptionWhereInput;
-  OR?: ExperienceSubscriptionWhereInput[] | ExperienceSubscriptionWhereInput;
-  NOT?: ExperienceSubscriptionWhereInput[] | ExperienceSubscriptionWhereInput;
-}
-
-export interface EmployeeUpdateWithoutEducationDataInput {
-  userid?: String;
-  companyId?: String;
-  firstName?: String;
-  lastName?: String;
-  livingLocationText?: String;
-  livingplaceId?: Int;
-  about?: String;
-  workSince?: Int;
-  skills?: EmployeeSkillUpdateManyWithoutEmployeeInput;
-  links?: LinkUpdateManyWithoutEmployeeInput;
-  experience?: ExperienceUpdateManyInput;
-}
-
-export interface EmployeeSubscriptionWhereInput {
-  mutation_in?: MutationType[] | MutationType;
-  updatedFields_contains?: String;
-  updatedFields_contains_every?: String[] | String;
-  updatedFields_contains_some?: String[] | String;
-  node?: EmployeeWhereInput;
-  AND?: EmployeeSubscriptionWhereInput[] | EmployeeSubscriptionWhereInput;
-  OR?: EmployeeSubscriptionWhereInput[] | EmployeeSubscriptionWhereInput;
-  NOT?: EmployeeSubscriptionWhereInput[] | EmployeeSubscriptionWhereInput;
-}
-
-export interface EmployeeSkillUpdateManyWithoutEmployeeInput {
-  create?:
-    | EmployeeSkillCreateWithoutEmployeeInput[]
-    | EmployeeSkillCreateWithoutEmployeeInput;
-  delete?: EmployeeSkillWhereUniqueInput[] | EmployeeSkillWhereUniqueInput;
-  connect?: EmployeeSkillWhereUniqueInput[] | EmployeeSkillWhereUniqueInput;
-  set?: EmployeeSkillWhereUniqueInput[] | EmployeeSkillWhereUniqueInput;
-  disconnect?: EmployeeSkillWhereUniqueInput[] | EmployeeSkillWhereUniqueInput;
-  update?:
-    | EmployeeSkillUpdateWithWhereUniqueWithoutEmployeeInput[]
-    | EmployeeSkillUpdateWithWhereUniqueWithoutEmployeeInput;
-  upsert?:
-    | EmployeeSkillUpsertWithWhereUniqueWithoutEmployeeInput[]
-    | EmployeeSkillUpsertWithWhereUniqueWithoutEmployeeInput;
-  deleteMany?: EmployeeSkillScalarWhereInput[] | EmployeeSkillScalarWhereInput;
-  updateMany?:
-    | EmployeeSkillUpdateManyWithWhereNestedInput[]
-    | EmployeeSkillUpdateManyWithWhereNestedInput;
-}
-
-export interface SkillUpdateManyMutationInput {
-  name?: String;
-}
-
-export interface EmployeeSkillUpdateWithWhereUniqueWithoutEmployeeInput {
-  where: EmployeeSkillWhereUniqueInput;
-  data: EmployeeSkillUpdateWithoutEmployeeDataInput;
-}
-
-export interface SkillUpdateInput {
-  name?: String;
-}
-
-export interface EmployeeSkillUpdateWithoutEmployeeDataInput {
-  skill?: SkillUpdateOneRequiredInput;
-  years?: Int;
-}
-
-export interface EmployeeUpsertWithoutLinksInput {
-  update: EmployeeUpdateWithoutLinksDataInput;
-  create: EmployeeCreateWithoutLinksInput;
-}
-
-export interface SkillUpdateOneRequiredInput {
-  create?: SkillCreateInput;
-  update?: SkillUpdateDataInput;
-  upsert?: SkillUpsertNestedInput;
-  connect?: SkillWhereUniqueInput;
-}
-
-export type EmployeeSkillWhereUniqueInput = AtLeastOne<{
-  id: ID_Input;
-}>;
-
-export interface SkillUpdateDataInput {
-  name?: String;
-}
-
-export interface LinkUpdateInput {
-  employee?: EmployeeUpdateOneRequiredWithoutLinksInput;
-  link?: String;
-}
-
-export interface SkillUpsertNestedInput {
-  update: SkillUpdateDataInput;
-  create: SkillCreateInput;
-}
-
-export type ExperienceWhereUniqueInput = AtLeastOne<{
-  id: ID_Input;
-}>;
-
-export interface EmployeeSkillUpsertWithWhereUniqueWithoutEmployeeInput {
-  where: EmployeeSkillWhereUniqueInput;
-  update: EmployeeSkillUpdateWithoutEmployeeDataInput;
-  create: EmployeeSkillCreateWithoutEmployeeInput;
-}
-
-export interface LinkCreateInput {
-  employee: EmployeeCreateOneWithoutLinksInput;
-  link: String;
-}
-
-export interface EmployeeSkillScalarWhereInput {
-  id?: ID_Input;
-  id_not?: ID_Input;
-  id_in?: ID_Input[] | ID_Input;
-  id_not_in?: ID_Input[] | ID_Input;
-  id_lt?: ID_Input;
-  id_lte?: ID_Input;
-  id_gt?: ID_Input;
-  id_gte?: ID_Input;
-  id_contains?: ID_Input;
-  id_not_contains?: ID_Input;
-  id_starts_with?: ID_Input;
-  id_not_starts_with?: ID_Input;
-  id_ends_with?: ID_Input;
-  id_not_ends_with?: ID_Input;
-  years?: Int;
-  years_not?: Int;
-  years_in?: Int[] | Int;
-  years_not_in?: Int[] | Int;
-  years_lt?: Int;
-  years_lte?: Int;
-  years_gt?: Int;
-  years_gte?: Int;
-  AND?: EmployeeSkillScalarWhereInput[] | EmployeeSkillScalarWhereInput;
-  OR?: EmployeeSkillScalarWhereInput[] | EmployeeSkillScalarWhereInput;
-  NOT?: EmployeeSkillScalarWhereInput[] | EmployeeSkillScalarWhereInput;
-}
-
-export type LinkWhereUniqueInput = AtLeastOne<{
-  id: ID_Input;
-}>;
-
-export interface EmployeeCreateOneWithoutSkillsInput {
-  create?: EmployeeCreateWithoutSkillsInput;
-  connect?: EmployeeWhereUniqueInput;
-}
-
-export interface EmployeeSkillUpdateManyMutationInput {
-  years?: Int;
-}
-
-export interface EmployeeSkillUpdateManyDataInput {
-  years?: Int;
-}
-
-export type SkillWhereUniqueInput = AtLeastOne<{
-  id: ID_Input;
-}>;
-
-export interface LinkUpdateManyWithoutEmployeeInput {
-  create?: LinkCreateWithoutEmployeeInput[] | LinkCreateWithoutEmployeeInput;
-  delete?: LinkWhereUniqueInput[] | LinkWhereUniqueInput;
-  connect?: LinkWhereUniqueInput[] | LinkWhereUniqueInput;
-  set?: LinkWhereUniqueInput[] | LinkWhereUniqueInput;
-  disconnect?: LinkWhereUniqueInput[] | LinkWhereUniqueInput;
-  update?:
-    | LinkUpdateWithWhereUniqueWithoutEmployeeInput[]
-    | LinkUpdateWithWhereUniqueWithoutEmployeeInput;
-  upsert?:
-    | LinkUpsertWithWhereUniqueWithoutEmployeeInput[]
-    | LinkUpsertWithWhereUniqueWithoutEmployeeInput;
-  deleteMany?: LinkScalarWhereInput[] | LinkScalarWhereInput;
-  updateMany?:
-    | LinkUpdateManyWithWhereNestedInput[]
-    | LinkUpdateManyWithWhereNestedInput;
-}
-
-export interface EmployeeUpdateOneRequiredWithoutSkillsInput {
-  create?: EmployeeCreateWithoutSkillsInput;
-  update?: EmployeeUpdateWithoutSkillsDataInput;
-  upsert?: EmployeeUpsertWithoutSkillsInput;
-  connect?: EmployeeWhereUniqueInput;
-}
-
-export interface LinkUpdateWithWhereUniqueWithoutEmployeeInput {
-  where: LinkWhereUniqueInput;
-  data: LinkUpdateWithoutEmployeeDataInput;
-}
-
-export interface EmployeeCreateWithoutSkillsInput {
-  userid: String;
-  companyId?: String;
-  firstName: String;
-  lastName: String;
-  livingLocationText?: String;
-  livingplaceId?: Int;
-  about?: String;
-  workSince?: Int;
-  links?: LinkCreateManyWithoutEmployeeInput;
-  experience?: ExperienceCreateManyInput;
-  education?: EducationCreateManyWithoutEmployeeInput;
-}
-
-export interface LinkUpdateWithoutEmployeeDataInput {
-  link?: String;
-}
-
-export interface EducationCreateInput {
-  employee: EmployeeCreateOneWithoutEducationInput;
-  fromYear: Int;
-  toYear?: Int;
-  degree?: String;
-  fieldOfStudy?: String;
-  school?: String;
-  locationText?: String;
-  locationId?: Int;
-  notes?: String;
-  current: Boolean;
-}
-
-export interface EmployeeSkillCreateInput {
-  employee: EmployeeCreateOneWithoutSkillsInput;
-  skill: SkillCreateOneInput;
-  years?: Int;
-}
-
 export interface EmployeeCreateWithoutEducationInput {
   userid: String;
   companyId?: String;
@@ -1115,7 +1171,7 @@ export interface EmployeeCreateWithoutEducationInput {
   experience?: ExperienceCreateManyInput;
 }
 
-export interface SkillWhereInput {
+export interface LinkScalarWhereInput {
   id?: ID_Input;
   id_not?: ID_Input;
   id_in?: ID_Input[] | ID_Input;
@@ -1130,43 +1186,39 @@ export interface SkillWhereInput {
   id_not_starts_with?: ID_Input;
   id_ends_with?: ID_Input;
   id_not_ends_with?: ID_Input;
-  name?: String;
-  name_not?: String;
-  name_in?: String[] | String;
-  name_not_in?: String[] | String;
-  name_lt?: String;
-  name_lte?: String;
-  name_gt?: String;
-  name_gte?: String;
-  name_contains?: String;
-  name_not_contains?: String;
-  name_starts_with?: String;
-  name_not_starts_with?: String;
-  name_ends_with?: String;
-  name_not_ends_with?: String;
-  AND?: SkillWhereInput[] | SkillWhereInput;
-  OR?: SkillWhereInput[] | SkillWhereInput;
-  NOT?: SkillWhereInput[] | SkillWhereInput;
+  link?: String;
+  link_not?: String;
+  link_in?: String[] | String;
+  link_not_in?: String[] | String;
+  link_lt?: String;
+  link_lte?: String;
+  link_gt?: String;
+  link_gte?: String;
+  link_contains?: String;
+  link_not_contains?: String;
+  link_starts_with?: String;
+  link_not_starts_with?: String;
+  link_ends_with?: String;
+  link_not_ends_with?: String;
+  AND?: LinkScalarWhereInput[] | LinkScalarWhereInput;
+  OR?: LinkScalarWhereInput[] | LinkScalarWhereInput;
+  NOT?: LinkScalarWhereInput[] | LinkScalarWhereInput;
 }
 
-export interface EmployeeSkillCreateWithoutEmployeeInput {
-  skill: SkillCreateOneInput;
-  years?: Int;
+export interface SkillSubscriptionWhereInput {
+  mutation_in?: MutationType[] | MutationType;
+  updatedFields_contains?: String;
+  updatedFields_contains_every?: String[] | String;
+  updatedFields_contains_some?: String[] | String;
+  node?: SkillWhereInput;
+  AND?: SkillSubscriptionWhereInput[] | SkillSubscriptionWhereInput;
+  OR?: SkillSubscriptionWhereInput[] | SkillSubscriptionWhereInput;
+  NOT?: SkillSubscriptionWhereInput[] | SkillSubscriptionWhereInput;
 }
 
-export interface EmployeeUpdateManyMutationInput {
-  userid?: String;
-  companyId?: String;
-  firstName?: String;
-  lastName?: String;
-  livingLocationText?: String;
-  livingplaceId?: Int;
-  about?: String;
-  workSince?: Int;
-}
-
-export interface SkillCreateInput {
-  name: String;
+export interface LinkUpdateManyWithWhereNestedInput {
+  where: LinkScalarWhereInput;
+  data: LinkUpdateManyDataInput;
 }
 
 export interface EmployeeWhereInput {
@@ -1301,8 +1353,19 @@ export interface EmployeeWhereInput {
   NOT?: EmployeeWhereInput[] | EmployeeWhereInput;
 }
 
-export interface LinkCreateWithoutEmployeeInput {
-  link: String;
+export interface LinkUpdateManyDataInput {
+  link?: String;
+}
+
+export interface EmployeeSubscriptionWhereInput {
+  mutation_in?: MutationType[] | MutationType;
+  updatedFields_contains?: String;
+  updatedFields_contains_every?: String[] | String;
+  updatedFields_contains_some?: String[] | String;
+  node?: EmployeeWhereInput;
+  AND?: EmployeeSubscriptionWhereInput[] | EmployeeSubscriptionWhereInput;
+  OR?: EmployeeSubscriptionWhereInput[] | EmployeeSubscriptionWhereInput;
+  NOT?: EmployeeSubscriptionWhereInput[] | EmployeeSubscriptionWhereInput;
 }
 
 export interface ExperienceUpdateManyInput {
@@ -1323,15 +1386,8 @@ export interface ExperienceUpdateManyInput {
     | ExperienceUpdateManyWithWhereNestedInput;
 }
 
-export interface LinkSubscriptionWhereInput {
-  mutation_in?: MutationType[] | MutationType;
-  updatedFields_contains?: String;
-  updatedFields_contains_every?: String[] | String;
-  updatedFields_contains_some?: String[] | String;
-  node?: LinkWhereInput;
-  AND?: LinkSubscriptionWhereInput[] | LinkSubscriptionWhereInput;
-  OR?: LinkSubscriptionWhereInput[] | LinkSubscriptionWhereInput;
-  NOT?: LinkSubscriptionWhereInput[] | LinkSubscriptionWhereInput;
+export interface SkillUpdateInput {
+  name?: String;
 }
 
 export interface ExperienceUpdateWithWhereUniqueNestedInput {
@@ -1339,16 +1395,9 @@ export interface ExperienceUpdateWithWhereUniqueNestedInput {
   data: ExperienceUpdateDataInput;
 }
 
-export interface EducationSubscriptionWhereInput {
-  mutation_in?: MutationType[] | MutationType;
-  updatedFields_contains?: String;
-  updatedFields_contains_every?: String[] | String;
-  updatedFields_contains_some?: String[] | String;
-  node?: EducationWhereInput;
-  AND?: EducationSubscriptionWhereInput[] | EducationSubscriptionWhereInput;
-  OR?: EducationSubscriptionWhereInput[] | EducationSubscriptionWhereInput;
-  NOT?: EducationSubscriptionWhereInput[] | EducationSubscriptionWhereInput;
-}
+export type EmployeeSkillWhereUniqueInput = AtLeastOne<{
+  id: ID_Input;
+}>;
 
 export interface ExperienceUpdateDataInput {
   position?: String;
@@ -1361,9 +1410,9 @@ export interface ExperienceUpdateDataInput {
   current?: Boolean;
 }
 
-export interface LinkUpdateManyMutationInput {
-  link?: String;
-}
+export type ExperienceWhereUniqueInput = AtLeastOne<{
+  id: ID_Input;
+}>;
 
 export interface ExperienceUpsertWithWhereUniqueNestedInput {
   where: ExperienceWhereUniqueInput;
@@ -1371,12 +1420,9 @@ export interface ExperienceUpsertWithWhereUniqueNestedInput {
   create: ExperienceCreateInput;
 }
 
-export interface EmployeeUpdateOneRequiredWithoutLinksInput {
-  create?: EmployeeCreateWithoutLinksInput;
-  update?: EmployeeUpdateWithoutLinksDataInput;
-  upsert?: EmployeeUpsertWithoutLinksInput;
-  connect?: EmployeeWhereUniqueInput;
-}
+export type KeyPairWhereUniqueInput = AtLeastOne<{
+  id: ID_Input;
+}>;
 
 export interface ExperienceScalarWhereInput {
   id?: ID_Input;
@@ -1480,17 +1526,7 @@ export interface ExperienceScalarWhereInput {
   NOT?: ExperienceScalarWhereInput[] | ExperienceScalarWhereInput;
 }
 
-export interface EmployeeCreateOneWithoutLinksInput {
-  create?: EmployeeCreateWithoutLinksInput;
-  connect?: EmployeeWhereUniqueInput;
-}
-
-export interface ExperienceUpdateManyWithWhereNestedInput {
-  where: ExperienceScalarWhereInput;
-  data: ExperienceUpdateManyDataInput;
-}
-
-export interface ExperienceUpdateInput {
+export interface ExperienceUpdateManyMutationInput {
   position?: String;
   company?: String;
   companyId?: String;
@@ -1499,6 +1535,16 @@ export interface ExperienceUpdateInput {
   fromYear?: Int;
   toYear?: Int;
   current?: Boolean;
+}
+
+export interface ExperienceUpdateManyWithWhereNestedInput {
+  where: ExperienceScalarWhereInput;
+  data: ExperienceUpdateManyDataInput;
+}
+
+export interface EmployeeUpsertWithoutSkillsInput {
+  update: EmployeeUpdateWithoutSkillsDataInput;
+  create: EmployeeCreateWithoutSkillsInput;
 }
 
 export interface ExperienceUpdateManyDataInput {
@@ -1512,18 +1558,10 @@ export interface ExperienceUpdateManyDataInput {
   current?: Boolean;
 }
 
-export interface EmployeeUpdateWithoutSkillsDataInput {
-  userid?: String;
-  companyId?: String;
-  firstName?: String;
-  lastName?: String;
-  livingLocationText?: String;
-  livingplaceId?: Int;
-  about?: String;
-  workSince?: Int;
-  links?: LinkUpdateManyWithoutEmployeeInput;
-  experience?: ExperienceUpdateManyInput;
-  education?: EducationUpdateManyWithoutEmployeeInput;
+export interface EmployeeSkillUpdateInput {
+  employee?: EmployeeUpdateOneRequiredWithoutSkillsInput;
+  skill?: SkillUpdateOneRequiredInput;
+  years?: Int;
 }
 
 export interface EmployeeUpsertWithoutEducationInput {
@@ -1531,11 +1569,38 @@ export interface EmployeeUpsertWithoutEducationInput {
   create: EmployeeCreateWithoutEducationInput;
 }
 
-export interface EmployeeSkillCreateManyWithoutEmployeeInput {
-  create?:
-    | EmployeeSkillCreateWithoutEmployeeInput[]
-    | EmployeeSkillCreateWithoutEmployeeInput;
-  connect?: EmployeeSkillWhereUniqueInput[] | EmployeeSkillWhereUniqueInput;
+export interface SkillWhereInput {
+  id?: ID_Input;
+  id_not?: ID_Input;
+  id_in?: ID_Input[] | ID_Input;
+  id_not_in?: ID_Input[] | ID_Input;
+  id_lt?: ID_Input;
+  id_lte?: ID_Input;
+  id_gt?: ID_Input;
+  id_gte?: ID_Input;
+  id_contains?: ID_Input;
+  id_not_contains?: ID_Input;
+  id_starts_with?: ID_Input;
+  id_not_starts_with?: ID_Input;
+  id_ends_with?: ID_Input;
+  id_not_ends_with?: ID_Input;
+  name?: String;
+  name_not?: String;
+  name_in?: String[] | String;
+  name_not_in?: String[] | String;
+  name_lt?: String;
+  name_lte?: String;
+  name_gt?: String;
+  name_gte?: String;
+  name_contains?: String;
+  name_not_contains?: String;
+  name_starts_with?: String;
+  name_not_starts_with?: String;
+  name_ends_with?: String;
+  name_not_ends_with?: String;
+  AND?: SkillWhereInput[] | SkillWhereInput;
+  OR?: SkillWhereInput[] | SkillWhereInput;
+  NOT?: SkillWhereInput[] | SkillWhereInput;
 }
 
 export interface EducationUpdateManyMutationInput {
@@ -1550,9 +1615,34 @@ export interface EducationUpdateManyMutationInput {
   current?: Boolean;
 }
 
-export interface LinkCreateManyWithoutEmployeeInput {
-  create?: LinkCreateWithoutEmployeeInput[] | LinkCreateWithoutEmployeeInput;
-  connect?: LinkWhereUniqueInput[] | LinkWhereUniqueInput;
+export interface EmployeeSkillWhereInput {
+  id?: ID_Input;
+  id_not?: ID_Input;
+  id_in?: ID_Input[] | ID_Input;
+  id_not_in?: ID_Input[] | ID_Input;
+  id_lt?: ID_Input;
+  id_lte?: ID_Input;
+  id_gt?: ID_Input;
+  id_gte?: ID_Input;
+  id_contains?: ID_Input;
+  id_not_contains?: ID_Input;
+  id_starts_with?: ID_Input;
+  id_not_starts_with?: ID_Input;
+  id_ends_with?: ID_Input;
+  id_not_ends_with?: ID_Input;
+  employee?: EmployeeWhereInput;
+  skill?: SkillWhereInput;
+  years?: Int;
+  years_not?: Int;
+  years_in?: Int[] | Int;
+  years_not_in?: Int[] | Int;
+  years_lt?: Int;
+  years_lte?: Int;
+  years_gt?: Int;
+  years_gte?: Int;
+  AND?: EmployeeSkillWhereInput[] | EmployeeSkillWhereInput;
+  OR?: EmployeeSkillWhereInput[] | EmployeeSkillWhereInput;
+  NOT?: EmployeeSkillWhereInput[] | EmployeeSkillWhereInput;
 }
 
 export interface EducationUpdateManyDataInput {
@@ -1567,21 +1657,9 @@ export interface EducationUpdateManyDataInput {
   current?: Boolean;
 }
 
-export interface EmployeeSkillSubscriptionWhereInput {
-  mutation_in?: MutationType[] | MutationType;
-  updatedFields_contains?: String;
-  updatedFields_contains_every?: String[] | String;
-  updatedFields_contains_some?: String[] | String;
-  node?: EmployeeSkillWhereInput;
-  AND?:
-    | EmployeeSkillSubscriptionWhereInput[]
-    | EmployeeSkillSubscriptionWhereInput;
-  OR?:
-    | EmployeeSkillSubscriptionWhereInput[]
-    | EmployeeSkillSubscriptionWhereInput;
-  NOT?:
-    | EmployeeSkillSubscriptionWhereInput[]
-    | EmployeeSkillSubscriptionWhereInput;
+export interface EmployeeUpsertWithoutLinksInput {
+  update: EmployeeUpdateWithoutLinksDataInput;
+  create: EmployeeCreateWithoutLinksInput;
 }
 
 export interface EducationUpdateManyWithWhereNestedInput {
@@ -1589,18 +1667,9 @@ export interface EducationUpdateManyWithWhereNestedInput {
   data: EducationUpdateManyDataInput;
 }
 
-export interface EmployeeUpdateWithoutLinksDataInput {
-  userid?: String;
-  companyId?: String;
-  firstName?: String;
-  lastName?: String;
-  livingLocationText?: String;
-  livingplaceId?: Int;
-  about?: String;
-  workSince?: Int;
-  skills?: EmployeeSkillUpdateManyWithoutEmployeeInput;
-  experience?: ExperienceUpdateManyInput;
-  education?: EducationUpdateManyWithoutEmployeeInput;
+export interface LinkCreateInput {
+  employee: EmployeeCreateOneWithoutLinksInput;
+  link: String;
 }
 
 export interface EmployeeCreateInput {
@@ -1618,15 +1687,8 @@ export interface EmployeeCreateInput {
   education?: EducationCreateManyWithoutEmployeeInput;
 }
 
-export interface ExperienceUpdateManyMutationInput {
-  position?: String;
-  company?: String;
-  companyId?: String;
-  locationText?: String;
-  locationid?: Int;
-  fromYear?: Int;
-  toYear?: Int;
-  current?: Boolean;
+export interface EmployeeSkillUpdateManyMutationInput {
+  years?: Int;
 }
 
 export interface EducationCreateManyWithoutEmployeeInput {
@@ -1636,10 +1698,9 @@ export interface EducationCreateManyWithoutEmployeeInput {
   connect?: EducationWhereUniqueInput[] | EducationWhereUniqueInput;
 }
 
-export interface EmployeeSkillUpdateInput {
-  employee?: EmployeeUpdateOneRequiredWithoutSkillsInput;
-  skill?: SkillUpdateOneRequiredInput;
-  years?: Int;
+export interface EmployeeCreateOneWithoutSkillsInput {
+  create?: EmployeeCreateWithoutSkillsInput;
+  connect?: EmployeeWhereUniqueInput;
 }
 
 export interface EducationCreateWithoutEmployeeInput {
@@ -1654,9 +1715,39 @@ export interface EducationCreateWithoutEmployeeInput {
   current: Boolean;
 }
 
-export interface SkillCreateOneInput {
-  create?: SkillCreateInput;
-  connect?: SkillWhereUniqueInput;
+export interface LinkWhereInput {
+  id?: ID_Input;
+  id_not?: ID_Input;
+  id_in?: ID_Input[] | ID_Input;
+  id_not_in?: ID_Input[] | ID_Input;
+  id_lt?: ID_Input;
+  id_lte?: ID_Input;
+  id_gt?: ID_Input;
+  id_gte?: ID_Input;
+  id_contains?: ID_Input;
+  id_not_contains?: ID_Input;
+  id_starts_with?: ID_Input;
+  id_not_starts_with?: ID_Input;
+  id_ends_with?: ID_Input;
+  id_not_ends_with?: ID_Input;
+  employee?: EmployeeWhereInput;
+  link?: String;
+  link_not?: String;
+  link_in?: String[] | String;
+  link_not_in?: String[] | String;
+  link_lt?: String;
+  link_lte?: String;
+  link_gt?: String;
+  link_gte?: String;
+  link_contains?: String;
+  link_not_contains?: String;
+  link_starts_with?: String;
+  link_not_starts_with?: String;
+  link_ends_with?: String;
+  link_not_ends_with?: String;
+  AND?: LinkWhereInput[] | LinkWhereInput;
+  OR?: LinkWhereInput[] | LinkWhereInput;
+  NOT?: LinkWhereInput[] | LinkWhereInput;
 }
 
 export interface EmployeeUpdateInput {
@@ -1674,10 +1765,10 @@ export interface EmployeeUpdateInput {
   education?: EducationUpdateManyWithoutEmployeeInput;
 }
 
-export type EmployeeWhereUniqueInput = AtLeastOne<{
-  id: ID_Input;
-  userid?: String;
-}>;
+export interface LinkUpdateInput {
+  employee?: EmployeeUpdateOneRequiredWithoutLinksInput;
+  link?: String;
+}
 
 export interface EducationUpsertWithWhereUniqueWithoutEmployeeInput {
   where: EducationWhereUniqueInput;
@@ -1722,29 +1813,42 @@ export interface EducationUpdateManyWithoutEmployeeInput {
     | EducationUpdateManyWithWhereNestedInput;
 }
 
-export interface EmployeeCreateWithoutLinksInput {
-  userid: String;
-  companyId?: String;
-  firstName: String;
-  lastName: String;
-  livingLocationText?: String;
-  livingplaceId?: Int;
-  about?: String;
-  workSince?: Int;
-  skills?: EmployeeSkillCreateManyWithoutEmployeeInput;
-  experience?: ExperienceCreateManyInput;
-  education?: EducationCreateManyWithoutEmployeeInput;
+export interface KeyPairWhereInput {
+  id?: ID_Input;
+  id_not?: ID_Input;
+  id_in?: ID_Input[] | ID_Input;
+  id_not_in?: ID_Input[] | ID_Input;
+  id_lt?: ID_Input;
+  id_lte?: ID_Input;
+  id_gt?: ID_Input;
+  id_gte?: ID_Input;
+  id_contains?: ID_Input;
+  id_not_contains?: ID_Input;
+  id_starts_with?: ID_Input;
+  id_not_starts_with?: ID_Input;
+  id_ends_with?: ID_Input;
+  id_not_ends_with?: ID_Input;
+  public?: String;
+  public_not?: String;
+  public_in?: String[] | String;
+  public_not_in?: String[] | String;
+  public_lt?: String;
+  public_lte?: String;
+  public_gt?: String;
+  public_gte?: String;
+  public_contains?: String;
+  public_not_contains?: String;
+  public_starts_with?: String;
+  public_not_starts_with?: String;
+  public_ends_with?: String;
+  public_not_ends_with?: String;
+  AND?: KeyPairWhereInput[] | KeyPairWhereInput;
+  OR?: KeyPairWhereInput[] | KeyPairWhereInput;
+  NOT?: KeyPairWhereInput[] | KeyPairWhereInput;
 }
 
-export interface SkillSubscriptionWhereInput {
-  mutation_in?: MutationType[] | MutationType;
-  updatedFields_contains?: String;
-  updatedFields_contains_every?: String[] | String;
-  updatedFields_contains_some?: String[] | String;
-  node?: SkillWhereInput;
-  AND?: SkillSubscriptionWhereInput[] | SkillSubscriptionWhereInput;
-  OR?: SkillSubscriptionWhereInput[] | SkillSubscriptionWhereInput;
-  NOT?: SkillSubscriptionWhereInput[] | SkillSubscriptionWhereInput;
+export interface SkillUpdateManyMutationInput {
+  name?: String;
 }
 
 export interface EmployeeCreateOneWithoutEducationInput {
@@ -1752,9 +1856,11 @@ export interface EmployeeCreateOneWithoutEducationInput {
   connect?: EmployeeWhereUniqueInput;
 }
 
-export interface EmployeeUpsertWithoutSkillsInput {
-  update: EmployeeUpdateWithoutSkillsDataInput;
-  create: EmployeeCreateWithoutSkillsInput;
+export interface EmployeeUpdateOneRequiredWithoutSkillsInput {
+  create?: EmployeeCreateWithoutSkillsInput;
+  update?: EmployeeUpdateWithoutSkillsDataInput;
+  upsert?: EmployeeUpsertWithoutSkillsInput;
+  connect?: EmployeeWhereUniqueInput;
 }
 
 export interface NodeNode {
@@ -1780,50 +1886,6 @@ export interface SkillPreviousValuesSubscription
   name: () => Promise<AsyncIterator<String>>;
 }
 
-export interface EmployeeEdge {
-  node: Employee;
-  cursor: String;
-}
-
-export interface EmployeeEdgePromise
-  extends Promise<EmployeeEdge>,
-    Fragmentable {
-  node: <T = EmployeePromise>() => T;
-  cursor: () => Promise<String>;
-}
-
-export interface EmployeeEdgeSubscription
-  extends Promise<AsyncIterator<EmployeeEdge>>,
-    Fragmentable {
-  node: <T = EmployeeSubscription>() => T;
-  cursor: () => Promise<AsyncIterator<String>>;
-}
-
-export interface LinkSubscriptionPayload {
-  mutation: MutationType;
-  node: Link;
-  updatedFields: String[];
-  previousValues: LinkPreviousValues;
-}
-
-export interface LinkSubscriptionPayloadPromise
-  extends Promise<LinkSubscriptionPayload>,
-    Fragmentable {
-  mutation: () => Promise<MutationType>;
-  node: <T = LinkPromise>() => T;
-  updatedFields: () => Promise<String[]>;
-  previousValues: <T = LinkPreviousValuesPromise>() => T;
-}
-
-export interface LinkSubscriptionPayloadSubscription
-  extends Promise<AsyncIterator<LinkSubscriptionPayload>>,
-    Fragmentable {
-  mutation: () => Promise<AsyncIterator<MutationType>>;
-  node: <T = LinkSubscription>() => T;
-  updatedFields: () => Promise<AsyncIterator<String[]>>;
-  previousValues: <T = LinkPreviousValuesSubscription>() => T;
-}
-
 export interface EmployeeConnection {
   pageInfo: PageInfo;
   edges: EmployeeEdge[];
@@ -1845,21 +1907,23 @@ export interface EmployeeConnectionSubscription
   aggregate: <T = AggregateEmployeeSubscription>() => T;
 }
 
-export interface Skill {
+export interface LinkPreviousValues {
   id: ID_Output;
-  name: String;
+  link: String;
 }
 
-export interface SkillPromise extends Promise<Skill>, Fragmentable {
+export interface LinkPreviousValuesPromise
+  extends Promise<LinkPreviousValues>,
+    Fragmentable {
   id: () => Promise<ID_Output>;
-  name: () => Promise<String>;
+  link: () => Promise<String>;
 }
 
-export interface SkillSubscription
-  extends Promise<AsyncIterator<Skill>>,
+export interface LinkPreviousValuesSubscription
+  extends Promise<AsyncIterator<LinkPreviousValues>>,
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
-  name: () => Promise<AsyncIterator<String>>;
+  link: () => Promise<AsyncIterator<String>>;
 }
 
 export interface BatchPayload {
@@ -1878,47 +1942,6 @@ export interface BatchPayloadSubscription
   count: () => Promise<AsyncIterator<Long>>;
 }
 
-export interface SkillSubscriptionPayload {
-  mutation: MutationType;
-  node: Skill;
-  updatedFields: String[];
-  previousValues: SkillPreviousValues;
-}
-
-export interface SkillSubscriptionPayloadPromise
-  extends Promise<SkillSubscriptionPayload>,
-    Fragmentable {
-  mutation: () => Promise<MutationType>;
-  node: <T = SkillPromise>() => T;
-  updatedFields: () => Promise<String[]>;
-  previousValues: <T = SkillPreviousValuesPromise>() => T;
-}
-
-export interface SkillSubscriptionPayloadSubscription
-  extends Promise<AsyncIterator<SkillSubscriptionPayload>>,
-    Fragmentable {
-  mutation: () => Promise<AsyncIterator<MutationType>>;
-  node: <T = SkillSubscription>() => T;
-  updatedFields: () => Promise<AsyncIterator<String[]>>;
-  previousValues: <T = SkillPreviousValuesSubscription>() => T;
-}
-
-export interface AggregateEducation {
-  count: Int;
-}
-
-export interface AggregateEducationPromise
-  extends Promise<AggregateEducation>,
-    Fragmentable {
-  count: () => Promise<Int>;
-}
-
-export interface AggregateEducationSubscription
-  extends Promise<AsyncIterator<AggregateEducation>>,
-    Fragmentable {
-  count: () => Promise<AsyncIterator<Int>>;
-}
-
 export interface AggregateSkill {
   count: Int;
 }
@@ -1935,23 +1958,20 @@ export interface AggregateSkillSubscription
   count: () => Promise<AsyncIterator<Int>>;
 }
 
-export interface EducationEdge {
-  node: Education;
-  cursor: String;
+export interface AggregateEducation {
+  count: Int;
 }
 
-export interface EducationEdgePromise
-  extends Promise<EducationEdge>,
+export interface AggregateEducationPromise
+  extends Promise<AggregateEducation>,
     Fragmentable {
-  node: <T = EducationPromise>() => T;
-  cursor: () => Promise<String>;
+  count: () => Promise<Int>;
 }
 
-export interface EducationEdgeSubscription
-  extends Promise<AsyncIterator<EducationEdge>>,
+export interface AggregateEducationSubscription
+  extends Promise<AsyncIterator<AggregateEducation>>,
     Fragmentable {
-  node: <T = EducationSubscription>() => T;
-  cursor: () => Promise<AsyncIterator<String>>;
+  count: () => Promise<AsyncIterator<Int>>;
 }
 
 export interface SkillConnection {
@@ -1973,6 +1993,41 @@ export interface SkillConnectionSubscription
   pageInfo: <T = PageInfoSubscription>() => T;
   edges: <T = Promise<AsyncIterator<SkillEdgeSubscription>>>() => T;
   aggregate: <T = AggregateSkillSubscription>() => T;
+}
+
+export interface EducationEdge {
+  node: Education;
+  cursor: String;
+}
+
+export interface EducationEdgePromise
+  extends Promise<EducationEdge>,
+    Fragmentable {
+  node: <T = EducationPromise>() => T;
+  cursor: () => Promise<String>;
+}
+
+export interface EducationEdgeSubscription
+  extends Promise<AsyncIterator<EducationEdge>>,
+    Fragmentable {
+  node: <T = EducationSubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
+}
+
+export interface AggregateLink {
+  count: Int;
+}
+
+export interface AggregateLinkPromise
+  extends Promise<AggregateLink>,
+    Fragmentable {
+  count: () => Promise<Int>;
+}
+
+export interface AggregateLinkSubscription
+  extends Promise<AsyncIterator<AggregateLink>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
 }
 
 export interface Education {
@@ -2018,20 +2073,25 @@ export interface EducationSubscription
   current: () => Promise<AsyncIterator<Boolean>>;
 }
 
-export interface AggregateLink {
-  count: Int;
+export interface LinkConnection {
+  pageInfo: PageInfo;
+  edges: LinkEdge[];
 }
 
-export interface AggregateLinkPromise
-  extends Promise<AggregateLink>,
+export interface LinkConnectionPromise
+  extends Promise<LinkConnection>,
     Fragmentable {
-  count: () => Promise<Int>;
+  pageInfo: <T = PageInfoPromise>() => T;
+  edges: <T = FragmentableArray<LinkEdge>>() => T;
+  aggregate: <T = AggregateLinkPromise>() => T;
 }
 
-export interface AggregateLinkSubscription
-  extends Promise<AsyncIterator<AggregateLink>>,
+export interface LinkConnectionSubscription
+  extends Promise<AsyncIterator<LinkConnection>>,
     Fragmentable {
-  count: () => Promise<AsyncIterator<Int>>;
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<LinkEdgeSubscription>>>() => T;
+  aggregate: <T = AggregateLinkSubscription>() => T;
 }
 
 export interface EducationSubscriptionPayload {
@@ -2059,25 +2119,21 @@ export interface EducationSubscriptionPayloadSubscription
   previousValues: <T = EducationPreviousValuesSubscription>() => T;
 }
 
-export interface LinkConnection {
-  pageInfo: PageInfo;
-  edges: LinkEdge[];
+export interface KeyPairEdge {
+  node: KeyPair;
+  cursor: String;
 }
 
-export interface LinkConnectionPromise
-  extends Promise<LinkConnection>,
-    Fragmentable {
-  pageInfo: <T = PageInfoPromise>() => T;
-  edges: <T = FragmentableArray<LinkEdge>>() => T;
-  aggregate: <T = AggregateLinkPromise>() => T;
+export interface KeyPairEdgePromise extends Promise<KeyPairEdge>, Fragmentable {
+  node: <T = KeyPairPromise>() => T;
+  cursor: () => Promise<String>;
 }
 
-export interface LinkConnectionSubscription
-  extends Promise<AsyncIterator<LinkConnection>>,
+export interface KeyPairEdgeSubscription
+  extends Promise<AsyncIterator<KeyPairEdge>>,
     Fragmentable {
-  pageInfo: <T = PageInfoSubscription>() => T;
-  edges: <T = Promise<AsyncIterator<LinkEdgeSubscription>>>() => T;
-  aggregate: <T = AggregateLinkSubscription>() => T;
+  node: <T = KeyPairSubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
 }
 
 export interface EducationPreviousValues {
@@ -2123,23 +2179,27 @@ export interface EducationPreviousValuesSubscription
   current: () => Promise<AsyncIterator<Boolean>>;
 }
 
-export interface ExperienceEdge {
-  node: Experience;
-  cursor: String;
+export interface EmployeeSkill {
+  id: ID_Output;
+  years?: Int;
 }
 
-export interface ExperienceEdgePromise
-  extends Promise<ExperienceEdge>,
+export interface EmployeeSkillPromise
+  extends Promise<EmployeeSkill>,
     Fragmentable {
-  node: <T = ExperiencePromise>() => T;
-  cursor: () => Promise<String>;
+  id: () => Promise<ID_Output>;
+  employee: <T = EmployeePromise>() => T;
+  skill: <T = SkillPromise>() => T;
+  years: () => Promise<Int>;
 }
 
-export interface ExperienceEdgeSubscription
-  extends Promise<AsyncIterator<ExperienceEdge>>,
+export interface EmployeeSkillSubscription
+  extends Promise<AsyncIterator<EmployeeSkill>>,
     Fragmentable {
-  node: <T = ExperienceSubscription>() => T;
-  cursor: () => Promise<AsyncIterator<String>>;
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  employee: <T = EmployeeSubscription>() => T;
+  skill: <T = SkillSubscription>() => T;
+  years: () => Promise<AsyncIterator<Int>>;
 }
 
 export interface PageInfo {
@@ -2165,18 +2225,18 @@ export interface PageInfoSubscription
   endCursor: () => Promise<AsyncIterator<String>>;
 }
 
-export interface AggregateEmployeeSkill {
+export interface AggregateExperience {
   count: Int;
 }
 
-export interface AggregateEmployeeSkillPromise
-  extends Promise<AggregateEmployeeSkill>,
+export interface AggregateExperiencePromise
+  extends Promise<AggregateExperience>,
     Fragmentable {
   count: () => Promise<Int>;
 }
 
-export interface AggregateEmployeeSkillSubscription
-  extends Promise<AsyncIterator<AggregateEmployeeSkill>>,
+export interface AggregateExperienceSubscription
+  extends Promise<AsyncIterator<AggregateExperience>>,
     Fragmentable {
   count: () => Promise<AsyncIterator<Int>>;
 }
@@ -2206,25 +2266,25 @@ export interface EmployeeSubscriptionPayloadSubscription
   previousValues: <T = EmployeePreviousValuesSubscription>() => T;
 }
 
-export interface EmployeeSkillConnection {
+export interface ExperienceConnection {
   pageInfo: PageInfo;
-  edges: EmployeeSkillEdge[];
+  edges: ExperienceEdge[];
 }
 
-export interface EmployeeSkillConnectionPromise
-  extends Promise<EmployeeSkillConnection>,
+export interface ExperienceConnectionPromise
+  extends Promise<ExperienceConnection>,
     Fragmentable {
   pageInfo: <T = PageInfoPromise>() => T;
-  edges: <T = FragmentableArray<EmployeeSkillEdge>>() => T;
-  aggregate: <T = AggregateEmployeeSkillPromise>() => T;
+  edges: <T = FragmentableArray<ExperienceEdge>>() => T;
+  aggregate: <T = AggregateExperiencePromise>() => T;
 }
 
-export interface EmployeeSkillConnectionSubscription
-  extends Promise<AsyncIterator<EmployeeSkillConnection>>,
+export interface ExperienceConnectionSubscription
+  extends Promise<AsyncIterator<ExperienceConnection>>,
     Fragmentable {
   pageInfo: <T = PageInfoSubscription>() => T;
-  edges: <T = Promise<AsyncIterator<EmployeeSkillEdgeSubscription>>>() => T;
-  aggregate: <T = AggregateEmployeeSkillSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<ExperienceEdgeSubscription>>>() => T;
+  aggregate: <T = AggregateExperienceSubscription>() => T;
 }
 
 export interface EmployeePreviousValues {
@@ -2267,27 +2327,23 @@ export interface EmployeePreviousValuesSubscription
   workSince: () => Promise<AsyncIterator<Int>>;
 }
 
-export interface EmployeeSkill {
-  id: ID_Output;
-  years?: Int;
+export interface EmployeeSkillEdge {
+  node: EmployeeSkill;
+  cursor: String;
 }
 
-export interface EmployeeSkillPromise
-  extends Promise<EmployeeSkill>,
+export interface EmployeeSkillEdgePromise
+  extends Promise<EmployeeSkillEdge>,
     Fragmentable {
-  id: () => Promise<ID_Output>;
-  employee: <T = EmployeePromise>() => T;
-  skill: <T = SkillPromise>() => T;
-  years: () => Promise<Int>;
+  node: <T = EmployeeSkillPromise>() => T;
+  cursor: () => Promise<String>;
 }
 
-export interface EmployeeSkillSubscription
-  extends Promise<AsyncIterator<EmployeeSkill>>,
+export interface EmployeeSkillEdgeSubscription
+  extends Promise<AsyncIterator<EmployeeSkillEdge>>,
     Fragmentable {
-  id: () => Promise<AsyncIterator<ID_Output>>;
-  employee: <T = EmployeeSubscription>() => T;
-  skill: <T = SkillSubscription>() => T;
-  years: () => Promise<AsyncIterator<Int>>;
+  node: <T = EmployeeSkillSubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
 }
 
 export interface EducationConnection {
@@ -2311,21 +2367,20 @@ export interface EducationConnectionSubscription
   aggregate: <T = AggregateEducationSubscription>() => T;
 }
 
-export interface SkillEdge {
-  node: Skill;
-  cursor: String;
+export interface AggregateEmployee {
+  count: Int;
 }
 
-export interface SkillEdgePromise extends Promise<SkillEdge>, Fragmentable {
-  node: <T = SkillPromise>() => T;
-  cursor: () => Promise<String>;
-}
-
-export interface SkillEdgeSubscription
-  extends Promise<AsyncIterator<SkillEdge>>,
+export interface AggregateEmployeePromise
+  extends Promise<AggregateEmployee>,
     Fragmentable {
-  node: <T = SkillSubscription>() => T;
-  cursor: () => Promise<AsyncIterator<String>>;
+  count: () => Promise<Int>;
+}
+
+export interface AggregateEmployeeSubscription
+  extends Promise<AsyncIterator<AggregateEmployee>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
 }
 
 export interface EmployeeSkillSubscriptionPayload {
@@ -2353,21 +2408,29 @@ export interface EmployeeSkillSubscriptionPayloadSubscription
   previousValues: <T = EmployeeSkillPreviousValuesSubscription>() => T;
 }
 
-export interface LinkEdge {
-  node: Link;
-  cursor: String;
+export interface SkillSubscriptionPayload {
+  mutation: MutationType;
+  node: Skill;
+  updatedFields: String[];
+  previousValues: SkillPreviousValues;
 }
 
-export interface LinkEdgePromise extends Promise<LinkEdge>, Fragmentable {
-  node: <T = LinkPromise>() => T;
-  cursor: () => Promise<String>;
-}
-
-export interface LinkEdgeSubscription
-  extends Promise<AsyncIterator<LinkEdge>>,
+export interface SkillSubscriptionPayloadPromise
+  extends Promise<SkillSubscriptionPayload>,
     Fragmentable {
-  node: <T = LinkSubscription>() => T;
-  cursor: () => Promise<AsyncIterator<String>>;
+  mutation: () => Promise<MutationType>;
+  node: <T = SkillPromise>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = SkillPreviousValuesPromise>() => T;
+}
+
+export interface SkillSubscriptionPayloadSubscription
+  extends Promise<AsyncIterator<SkillSubscriptionPayload>>,
+    Fragmentable {
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = SkillSubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = SkillPreviousValuesSubscription>() => T;
 }
 
 export interface EmployeeSkillPreviousValues {
@@ -2387,219 +2450,6 @@ export interface EmployeeSkillPreviousValuesSubscription
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
   years: () => Promise<AsyncIterator<Int>>;
-}
-
-export interface ExperienceConnection {
-  pageInfo: PageInfo;
-  edges: ExperienceEdge[];
-}
-
-export interface ExperienceConnectionPromise
-  extends Promise<ExperienceConnection>,
-    Fragmentable {
-  pageInfo: <T = PageInfoPromise>() => T;
-  edges: <T = FragmentableArray<ExperienceEdge>>() => T;
-  aggregate: <T = AggregateExperiencePromise>() => T;
-}
-
-export interface ExperienceConnectionSubscription
-  extends Promise<AsyncIterator<ExperienceConnection>>,
-    Fragmentable {
-  pageInfo: <T = PageInfoSubscription>() => T;
-  edges: <T = Promise<AsyncIterator<ExperienceEdgeSubscription>>>() => T;
-  aggregate: <T = AggregateExperienceSubscription>() => T;
-}
-
-export interface AggregateEmployee {
-  count: Int;
-}
-
-export interface AggregateEmployeePromise
-  extends Promise<AggregateEmployee>,
-    Fragmentable {
-  count: () => Promise<Int>;
-}
-
-export interface AggregateEmployeeSubscription
-  extends Promise<AsyncIterator<AggregateEmployee>>,
-    Fragmentable {
-  count: () => Promise<AsyncIterator<Int>>;
-}
-
-export interface Experience {
-  id: ID_Output;
-  position: String;
-  company: String;
-  companyId?: String;
-  locationText?: String;
-  locationid?: Int;
-  fromYear?: Int;
-  toYear?: Int;
-  current: Boolean;
-}
-
-export interface ExperiencePromise extends Promise<Experience>, Fragmentable {
-  id: () => Promise<ID_Output>;
-  position: () => Promise<String>;
-  company: () => Promise<String>;
-  companyId: () => Promise<String>;
-  locationText: () => Promise<String>;
-  locationid: () => Promise<Int>;
-  fromYear: () => Promise<Int>;
-  toYear: () => Promise<Int>;
-  current: () => Promise<Boolean>;
-}
-
-export interface ExperienceSubscription
-  extends Promise<AsyncIterator<Experience>>,
-    Fragmentable {
-  id: () => Promise<AsyncIterator<ID_Output>>;
-  position: () => Promise<AsyncIterator<String>>;
-  company: () => Promise<AsyncIterator<String>>;
-  companyId: () => Promise<AsyncIterator<String>>;
-  locationText: () => Promise<AsyncIterator<String>>;
-  locationid: () => Promise<AsyncIterator<Int>>;
-  fromYear: () => Promise<AsyncIterator<Int>>;
-  toYear: () => Promise<AsyncIterator<Int>>;
-  current: () => Promise<AsyncIterator<Boolean>>;
-}
-
-export interface ExperiencePreviousValues {
-  id: ID_Output;
-  position: String;
-  company: String;
-  companyId?: String;
-  locationText?: String;
-  locationid?: Int;
-  fromYear?: Int;
-  toYear?: Int;
-  current: Boolean;
-}
-
-export interface ExperiencePreviousValuesPromise
-  extends Promise<ExperiencePreviousValues>,
-    Fragmentable {
-  id: () => Promise<ID_Output>;
-  position: () => Promise<String>;
-  company: () => Promise<String>;
-  companyId: () => Promise<String>;
-  locationText: () => Promise<String>;
-  locationid: () => Promise<Int>;
-  fromYear: () => Promise<Int>;
-  toYear: () => Promise<Int>;
-  current: () => Promise<Boolean>;
-}
-
-export interface ExperiencePreviousValuesSubscription
-  extends Promise<AsyncIterator<ExperiencePreviousValues>>,
-    Fragmentable {
-  id: () => Promise<AsyncIterator<ID_Output>>;
-  position: () => Promise<AsyncIterator<String>>;
-  company: () => Promise<AsyncIterator<String>>;
-  companyId: () => Promise<AsyncIterator<String>>;
-  locationText: () => Promise<AsyncIterator<String>>;
-  locationid: () => Promise<AsyncIterator<Int>>;
-  fromYear: () => Promise<AsyncIterator<Int>>;
-  toYear: () => Promise<AsyncIterator<Int>>;
-  current: () => Promise<AsyncIterator<Boolean>>;
-}
-
-export interface ExperienceSubscriptionPayload {
-  mutation: MutationType;
-  node: Experience;
-  updatedFields: String[];
-  previousValues: ExperiencePreviousValues;
-}
-
-export interface ExperienceSubscriptionPayloadPromise
-  extends Promise<ExperienceSubscriptionPayload>,
-    Fragmentable {
-  mutation: () => Promise<MutationType>;
-  node: <T = ExperiencePromise>() => T;
-  updatedFields: () => Promise<String[]>;
-  previousValues: <T = ExperiencePreviousValuesPromise>() => T;
-}
-
-export interface ExperienceSubscriptionPayloadSubscription
-  extends Promise<AsyncIterator<ExperienceSubscriptionPayload>>,
-    Fragmentable {
-  mutation: () => Promise<AsyncIterator<MutationType>>;
-  node: <T = ExperienceSubscription>() => T;
-  updatedFields: () => Promise<AsyncIterator<String[]>>;
-  previousValues: <T = ExperiencePreviousValuesSubscription>() => T;
-}
-
-export interface LinkPreviousValues {
-  id: ID_Output;
-  link: String;
-}
-
-export interface LinkPreviousValuesPromise
-  extends Promise<LinkPreviousValues>,
-    Fragmentable {
-  id: () => Promise<ID_Output>;
-  link: () => Promise<String>;
-}
-
-export interface LinkPreviousValuesSubscription
-  extends Promise<AsyncIterator<LinkPreviousValues>>,
-    Fragmentable {
-  id: () => Promise<AsyncIterator<ID_Output>>;
-  link: () => Promise<AsyncIterator<String>>;
-}
-
-export interface Link {
-  id: ID_Output;
-  link: String;
-}
-
-export interface LinkPromise extends Promise<Link>, Fragmentable {
-  id: () => Promise<ID_Output>;
-  employee: <T = EmployeePromise>() => T;
-  link: () => Promise<String>;
-}
-
-export interface LinkSubscription
-  extends Promise<AsyncIterator<Link>>,
-    Fragmentable {
-  id: () => Promise<AsyncIterator<ID_Output>>;
-  employee: <T = EmployeeSubscription>() => T;
-  link: () => Promise<AsyncIterator<String>>;
-}
-
-export interface EmployeeSkillEdge {
-  node: EmployeeSkill;
-  cursor: String;
-}
-
-export interface EmployeeSkillEdgePromise
-  extends Promise<EmployeeSkillEdge>,
-    Fragmentable {
-  node: <T = EmployeeSkillPromise>() => T;
-  cursor: () => Promise<String>;
-}
-
-export interface EmployeeSkillEdgeSubscription
-  extends Promise<AsyncIterator<EmployeeSkillEdge>>,
-    Fragmentable {
-  node: <T = EmployeeSkillSubscription>() => T;
-  cursor: () => Promise<AsyncIterator<String>>;
-}
-
-export interface AggregateExperience {
-  count: Int;
-}
-
-export interface AggregateExperiencePromise
-  extends Promise<AggregateExperience>,
-    Fragmentable {
-  count: () => Promise<Int>;
-}
-
-export interface AggregateExperienceSubscription
-  extends Promise<AsyncIterator<AggregateExperience>>,
-    Fragmentable {
-  count: () => Promise<AsyncIterator<Int>>;
 }
 
 export interface Employee {
@@ -2712,17 +2562,388 @@ export interface EmployeeSubscription
   }) => T;
 }
 
-/*
-The `String` scalar type represents textual data, represented as UTF-8 character sequences. The String type is most often used by GraphQL to represent free-form human-readable text.
-*/
-export type String = string;
+export interface Experience {
+  id: ID_Output;
+  position: String;
+  company: String;
+  companyId?: String;
+  locationText?: String;
+  locationid?: Int;
+  fromYear?: Int;
+  toYear?: Int;
+  current: Boolean;
+}
 
-export type Long = string;
+export interface ExperiencePromise extends Promise<Experience>, Fragmentable {
+  id: () => Promise<ID_Output>;
+  position: () => Promise<String>;
+  company: () => Promise<String>;
+  companyId: () => Promise<String>;
+  locationText: () => Promise<String>;
+  locationid: () => Promise<Int>;
+  fromYear: () => Promise<Int>;
+  toYear: () => Promise<Int>;
+  current: () => Promise<Boolean>;
+}
+
+export interface ExperienceSubscription
+  extends Promise<AsyncIterator<Experience>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  position: () => Promise<AsyncIterator<String>>;
+  company: () => Promise<AsyncIterator<String>>;
+  companyId: () => Promise<AsyncIterator<String>>;
+  locationText: () => Promise<AsyncIterator<String>>;
+  locationid: () => Promise<AsyncIterator<Int>>;
+  fromYear: () => Promise<AsyncIterator<Int>>;
+  toYear: () => Promise<AsyncIterator<Int>>;
+  current: () => Promise<AsyncIterator<Boolean>>;
+}
+
+export interface AggregateKeyPair {
+  count: Int;
+}
+
+export interface AggregateKeyPairPromise
+  extends Promise<AggregateKeyPair>,
+    Fragmentable {
+  count: () => Promise<Int>;
+}
+
+export interface AggregateKeyPairSubscription
+  extends Promise<AsyncIterator<AggregateKeyPair>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
+}
+
+export interface ExperienceSubscriptionPayload {
+  mutation: MutationType;
+  node: Experience;
+  updatedFields: String[];
+  previousValues: ExperiencePreviousValues;
+}
+
+export interface ExperienceSubscriptionPayloadPromise
+  extends Promise<ExperienceSubscriptionPayload>,
+    Fragmentable {
+  mutation: () => Promise<MutationType>;
+  node: <T = ExperiencePromise>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = ExperiencePreviousValuesPromise>() => T;
+}
+
+export interface ExperienceSubscriptionPayloadSubscription
+  extends Promise<AsyncIterator<ExperienceSubscriptionPayload>>,
+    Fragmentable {
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = ExperienceSubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = ExperiencePreviousValuesSubscription>() => T;
+}
+
+export interface KeyPair {
+  id: ID_Output;
+  public: String;
+}
+
+export interface KeyPairPromise extends Promise<KeyPair>, Fragmentable {
+  id: () => Promise<ID_Output>;
+  public: () => Promise<String>;
+}
+
+export interface KeyPairSubscription
+  extends Promise<AsyncIterator<KeyPair>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  public: () => Promise<AsyncIterator<String>>;
+}
+
+export interface ExperiencePreviousValues {
+  id: ID_Output;
+  position: String;
+  company: String;
+  companyId?: String;
+  locationText?: String;
+  locationid?: Int;
+  fromYear?: Int;
+  toYear?: Int;
+  current: Boolean;
+}
+
+export interface ExperiencePreviousValuesPromise
+  extends Promise<ExperiencePreviousValues>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  position: () => Promise<String>;
+  company: () => Promise<String>;
+  companyId: () => Promise<String>;
+  locationText: () => Promise<String>;
+  locationid: () => Promise<Int>;
+  fromYear: () => Promise<Int>;
+  toYear: () => Promise<Int>;
+  current: () => Promise<Boolean>;
+}
+
+export interface ExperiencePreviousValuesSubscription
+  extends Promise<AsyncIterator<ExperiencePreviousValues>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  position: () => Promise<AsyncIterator<String>>;
+  company: () => Promise<AsyncIterator<String>>;
+  companyId: () => Promise<AsyncIterator<String>>;
+  locationText: () => Promise<AsyncIterator<String>>;
+  locationid: () => Promise<AsyncIterator<Int>>;
+  fromYear: () => Promise<AsyncIterator<Int>>;
+  toYear: () => Promise<AsyncIterator<Int>>;
+  current: () => Promise<AsyncIterator<Boolean>>;
+}
+
+export interface AggregateEmployeeSkill {
+  count: Int;
+}
+
+export interface AggregateEmployeeSkillPromise
+  extends Promise<AggregateEmployeeSkill>,
+    Fragmentable {
+  count: () => Promise<Int>;
+}
+
+export interface AggregateEmployeeSkillSubscription
+  extends Promise<AsyncIterator<AggregateEmployeeSkill>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
+}
+
+export interface Link {
+  id: ID_Output;
+  link: String;
+}
+
+export interface LinkPromise extends Promise<Link>, Fragmentable {
+  id: () => Promise<ID_Output>;
+  employee: <T = EmployeePromise>() => T;
+  link: () => Promise<String>;
+}
+
+export interface LinkSubscription
+  extends Promise<AsyncIterator<Link>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  employee: <T = EmployeeSubscription>() => T;
+  link: () => Promise<AsyncIterator<String>>;
+}
+
+export interface EmployeeEdge {
+  node: Employee;
+  cursor: String;
+}
+
+export interface EmployeeEdgePromise
+  extends Promise<EmployeeEdge>,
+    Fragmentable {
+  node: <T = EmployeePromise>() => T;
+  cursor: () => Promise<String>;
+}
+
+export interface EmployeeEdgeSubscription
+  extends Promise<AsyncIterator<EmployeeEdge>>,
+    Fragmentable {
+  node: <T = EmployeeSubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
+}
+
+export interface LinkSubscriptionPayload {
+  mutation: MutationType;
+  node: Link;
+  updatedFields: String[];
+  previousValues: LinkPreviousValues;
+}
+
+export interface LinkSubscriptionPayloadPromise
+  extends Promise<LinkSubscriptionPayload>,
+    Fragmentable {
+  mutation: () => Promise<MutationType>;
+  node: <T = LinkPromise>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = LinkPreviousValuesPromise>() => T;
+}
+
+export interface LinkSubscriptionPayloadSubscription
+  extends Promise<AsyncIterator<LinkSubscriptionPayload>>,
+    Fragmentable {
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = LinkSubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = LinkPreviousValuesSubscription>() => T;
+}
+
+export interface Skill {
+  id: ID_Output;
+  name: String;
+}
+
+export interface SkillPromise extends Promise<Skill>, Fragmentable {
+  id: () => Promise<ID_Output>;
+  name: () => Promise<String>;
+}
+
+export interface SkillSubscription
+  extends Promise<AsyncIterator<Skill>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  name: () => Promise<AsyncIterator<String>>;
+}
+
+export interface KeyPairPreviousValues {
+  id: ID_Output;
+  public: String;
+}
+
+export interface KeyPairPreviousValuesPromise
+  extends Promise<KeyPairPreviousValues>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  public: () => Promise<String>;
+}
+
+export interface KeyPairPreviousValuesSubscription
+  extends Promise<AsyncIterator<KeyPairPreviousValues>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  public: () => Promise<AsyncIterator<String>>;
+}
+
+export interface KeyPairSubscriptionPayload {
+  mutation: MutationType;
+  node: KeyPair;
+  updatedFields: String[];
+  previousValues: KeyPairPreviousValues;
+}
+
+export interface KeyPairSubscriptionPayloadPromise
+  extends Promise<KeyPairSubscriptionPayload>,
+    Fragmentable {
+  mutation: () => Promise<MutationType>;
+  node: <T = KeyPairPromise>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = KeyPairPreviousValuesPromise>() => T;
+}
+
+export interface KeyPairSubscriptionPayloadSubscription
+  extends Promise<AsyncIterator<KeyPairSubscriptionPayload>>,
+    Fragmentable {
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = KeyPairSubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = KeyPairPreviousValuesSubscription>() => T;
+}
+
+export interface SkillEdge {
+  node: Skill;
+  cursor: String;
+}
+
+export interface SkillEdgePromise extends Promise<SkillEdge>, Fragmentable {
+  node: <T = SkillPromise>() => T;
+  cursor: () => Promise<String>;
+}
+
+export interface SkillEdgeSubscription
+  extends Promise<AsyncIterator<SkillEdge>>,
+    Fragmentable {
+  node: <T = SkillSubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
+}
+
+export interface EmployeeSkillConnection {
+  pageInfo: PageInfo;
+  edges: EmployeeSkillEdge[];
+}
+
+export interface EmployeeSkillConnectionPromise
+  extends Promise<EmployeeSkillConnection>,
+    Fragmentable {
+  pageInfo: <T = PageInfoPromise>() => T;
+  edges: <T = FragmentableArray<EmployeeSkillEdge>>() => T;
+  aggregate: <T = AggregateEmployeeSkillPromise>() => T;
+}
+
+export interface EmployeeSkillConnectionSubscription
+  extends Promise<AsyncIterator<EmployeeSkillConnection>>,
+    Fragmentable {
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<EmployeeSkillEdgeSubscription>>>() => T;
+  aggregate: <T = AggregateEmployeeSkillSubscription>() => T;
+}
+
+export interface ExperienceEdge {
+  node: Experience;
+  cursor: String;
+}
+
+export interface ExperienceEdgePromise
+  extends Promise<ExperienceEdge>,
+    Fragmentable {
+  node: <T = ExperiencePromise>() => T;
+  cursor: () => Promise<String>;
+}
+
+export interface ExperienceEdgeSubscription
+  extends Promise<AsyncIterator<ExperienceEdge>>,
+    Fragmentable {
+  node: <T = ExperienceSubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
+}
+
+export interface KeyPairConnection {
+  pageInfo: PageInfo;
+  edges: KeyPairEdge[];
+}
+
+export interface KeyPairConnectionPromise
+  extends Promise<KeyPairConnection>,
+    Fragmentable {
+  pageInfo: <T = PageInfoPromise>() => T;
+  edges: <T = FragmentableArray<KeyPairEdge>>() => T;
+  aggregate: <T = AggregateKeyPairPromise>() => T;
+}
+
+export interface KeyPairConnectionSubscription
+  extends Promise<AsyncIterator<KeyPairConnection>>,
+    Fragmentable {
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<KeyPairEdgeSubscription>>>() => T;
+  aggregate: <T = AggregateKeyPairSubscription>() => T;
+}
+
+export interface LinkEdge {
+  node: Link;
+  cursor: String;
+}
+
+export interface LinkEdgePromise extends Promise<LinkEdge>, Fragmentable {
+  node: <T = LinkPromise>() => T;
+  cursor: () => Promise<String>;
+}
+
+export interface LinkEdgeSubscription
+  extends Promise<AsyncIterator<LinkEdge>>,
+    Fragmentable {
+  node: <T = LinkSubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
+}
+
+/*
+The `Int` scalar type represents non-fractional signed whole numeric values. Int can represent values between -(2^31) and 2^31 - 1. 
+*/
+export type Int = number;
 
 /*
 The `Boolean` scalar type represents `true` or `false`.
 */
 export type Boolean = boolean;
+
+export type Long = string;
 
 /*
 The `ID` scalar type represents a unique identifier, often used to refetch an object or as key for a cache. The ID type appears in a JSON response as a String; however, it is not intended to be human-readable. When expected as an input type, any string (such as `"4"`) or integer (such as `4`) input value will be accepted as an ID.
@@ -2731,9 +2952,9 @@ export type ID_Input = string | number;
 export type ID_Output = string;
 
 /*
-The `Int` scalar type represents non-fractional signed whole numeric values. Int can represent values between -(2^31) and 2^31 - 1. 
+The `String` scalar type represents textual data, represented as UTF-8 character sequences. The String type is most often used by GraphQL to represent free-form human-readable text.
 */
-export type Int = number;
+export type String = string;
 
 /**
  * Model Metadata
@@ -2762,6 +2983,10 @@ export const models: Model[] = [
   },
   {
     name: "Education",
+    embedded: false
+  },
+  {
+    name: "KeyPair",
     embedded: false
   }
 ];

@@ -18,6 +18,10 @@ type AggregateExperience {
   count: Int!
 }
 
+type AggregateKeyPair {
+  count: Int!
+}
+
 type AggregateLink {
   count: Int!
 }
@@ -1387,6 +1391,102 @@ input ExperienceWhereUniqueInput {
   id: ID
 }
 
+type KeyPair {
+  id: ID!
+  public: String!
+}
+
+type KeyPairConnection {
+  pageInfo: PageInfo!
+  edges: [KeyPairEdge]!
+  aggregate: AggregateKeyPair!
+}
+
+input KeyPairCreateInput {
+  public: String!
+}
+
+type KeyPairEdge {
+  node: KeyPair!
+  cursor: String!
+}
+
+enum KeyPairOrderByInput {
+  id_ASC
+  id_DESC
+  public_ASC
+  public_DESC
+}
+
+type KeyPairPreviousValues {
+  id: ID!
+  public: String!
+}
+
+type KeyPairSubscriptionPayload {
+  mutation: MutationType!
+  node: KeyPair
+  updatedFields: [String!]
+  previousValues: KeyPairPreviousValues
+}
+
+input KeyPairSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: KeyPairWhereInput
+  AND: [KeyPairSubscriptionWhereInput!]
+  OR: [KeyPairSubscriptionWhereInput!]
+  NOT: [KeyPairSubscriptionWhereInput!]
+}
+
+input KeyPairUpdateInput {
+  public: String
+}
+
+input KeyPairUpdateManyMutationInput {
+  public: String
+}
+
+input KeyPairWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  public: String
+  public_not: String
+  public_in: [String!]
+  public_not_in: [String!]
+  public_lt: String
+  public_lte: String
+  public_gt: String
+  public_gte: String
+  public_contains: String
+  public_not_contains: String
+  public_starts_with: String
+  public_not_starts_with: String
+  public_ends_with: String
+  public_not_ends_with: String
+  AND: [KeyPairWhereInput!]
+  OR: [KeyPairWhereInput!]
+  NOT: [KeyPairWhereInput!]
+}
+
+input KeyPairWhereUniqueInput {
+  id: ID
+}
+
 type Link {
   id: ID!
   employee: Employee!
@@ -1593,6 +1693,12 @@ type Mutation {
   upsertExperience(where: ExperienceWhereUniqueInput!, create: ExperienceCreateInput!, update: ExperienceUpdateInput!): Experience!
   deleteExperience(where: ExperienceWhereUniqueInput!): Experience
   deleteManyExperiences(where: ExperienceWhereInput): BatchPayload!
+  createKeyPair(data: KeyPairCreateInput!): KeyPair!
+  updateKeyPair(data: KeyPairUpdateInput!, where: KeyPairWhereUniqueInput!): KeyPair
+  updateManyKeyPairs(data: KeyPairUpdateManyMutationInput!, where: KeyPairWhereInput): BatchPayload!
+  upsertKeyPair(where: KeyPairWhereUniqueInput!, create: KeyPairCreateInput!, update: KeyPairUpdateInput!): KeyPair!
+  deleteKeyPair(where: KeyPairWhereUniqueInput!): KeyPair
+  deleteManyKeyPairs(where: KeyPairWhereInput): BatchPayload!
   createLink(data: LinkCreateInput!): Link!
   updateLink(data: LinkUpdateInput!, where: LinkWhereUniqueInput!): Link
   updateManyLinks(data: LinkUpdateManyMutationInput!, where: LinkWhereInput): BatchPayload!
@@ -1637,6 +1743,9 @@ type Query {
   experience(where: ExperienceWhereUniqueInput!): Experience
   experiences(where: ExperienceWhereInput, orderBy: ExperienceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Experience]!
   experiencesConnection(where: ExperienceWhereInput, orderBy: ExperienceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ExperienceConnection!
+  keyPair(where: KeyPairWhereUniqueInput!): KeyPair
+  keyPairs(where: KeyPairWhereInput, orderBy: KeyPairOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [KeyPair]!
+  keyPairsConnection(where: KeyPairWhereInput, orderBy: KeyPairOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): KeyPairConnection!
   link(where: LinkWhereUniqueInput!): Link
   links(where: LinkWhereInput, orderBy: LinkOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Link]!
   linksConnection(where: LinkWhereInput, orderBy: LinkOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): LinkConnection!
@@ -1768,6 +1877,7 @@ type Subscription {
   employee(where: EmployeeSubscriptionWhereInput): EmployeeSubscriptionPayload
   employeeSkill(where: EmployeeSkillSubscriptionWhereInput): EmployeeSkillSubscriptionPayload
   experience(where: ExperienceSubscriptionWhereInput): ExperienceSubscriptionPayload
+  keyPair(where: KeyPairSubscriptionWhereInput): KeyPairSubscriptionPayload
   link(where: LinkSubscriptionWhereInput): LinkSubscriptionPayload
   skill(where: SkillSubscriptionWhereInput): SkillSubscriptionPayload
 }
