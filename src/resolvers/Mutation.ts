@@ -5,7 +5,7 @@ async function createCV(parent, args, context, info) {
   const employee = await context.prisma.createEmployee({
     firstName: args.firstName,
     lastName: args.lastName,
-    userId: { connect: { id: userId } }
+    userId
   })
   return employee
 }

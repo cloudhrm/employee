@@ -1,6 +1,6 @@
 type Employee {
   id: ID! @unique
-  userid: String! @unique
+  userId: String! @unique
   companyId: String
   firstName: String!
   lastName: String!
@@ -59,6 +59,6 @@ type Education {
 }
 
 type KeyPair {
-  id: ID! @unique
+  keyId: String! @unique
   public: String!
 }

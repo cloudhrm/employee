@@ -81,10 +81,8 @@ mutation {
     firstName: "Firstname"
     lastName: "Lastname"
   ) {
-    employee {
-      firstName
-      lastName
-    }
+    firstName
+    lastName
   }
 }
 ```
