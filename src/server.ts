@@ -4,8 +4,7 @@ import { Query } from './resolvers/Query'
 import { Mutation } from './resolvers/Mutation'
 
 const resolvers = {
-  Query,
-  Mutation
+  Query
 }
 
 require('dotenv').config()
