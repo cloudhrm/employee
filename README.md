@@ -10,13 +10,13 @@
 
 Start docker:
 
-```
+```sh
 docker-compose up -d prisma
 ```
 
 After start server:
 
-```
+```sh
 yarn prisma:deploy
 yarn prisma:generate
 yarn start:dev
@@ -35,7 +35,7 @@ At first, potential employee should sign in using auth service and enter his CV 
 
 So, sign in within auth service:
 
-```
+```graphql
 mutation {
   signup(
     email: "first.employee@example.com"
@@ -52,12 +52,9 @@ mutation {
 
 Or log in, if you already did sign up:
 
-```
+```graphql
 mutation {
-  login(
-    email: "first.employee@example.com"
-    password: "firstpass"
-  ) {
+  login(email: "first.employee@example.com", password: "firstpass") {
     token
     user {
       name
@@ -68,7 +65,7 @@ mutation {
 
 Add received token to futher requests authorization header:
 
-```
+```graphql
 {
   "Authorization": "Bearer TOKEN_GOES_HERE"
 }
@@ -77,12 +74,9 @@ Add received token to futher requests authorization header:
 Now you got a token which you can use to do futher operations against employee service.
 So fill up CV details to be able to apply for a position.
 
-```
+```graphql
 mutation {
-  createCV(
-    firstName: "Firstname"
-    lastName: "Lastname"
-  ) {
+  createCV(firstName: "Firstname", lastName: "Lastname") {
     firstName
     lastName
   }
