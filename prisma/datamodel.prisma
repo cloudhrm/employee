@@ -23,6 +23,7 @@ type EmployeeSkill {
   id: ID! @unique
   employee: Employee!
   skill: Skill!
+  level: Int
   years: Int
 }
 
@@ -34,11 +35,12 @@ type Link {
 
 type Experience {
   id: ID! @unique
+  employee: Employee!
   position: String!
   company: String!
   companyId: String
   locationText: String
-  locationid: Int
+  locationId: Int
   fromYear: Int
   toYear: Int
   current: Boolean!

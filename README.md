@@ -34,6 +34,8 @@ You can access backend playground at - [http://localhost:4000/](http://localhost
 
 ### Migrations with example data
 
+#### Creating CV
+
 For example queries you should [Auth service](https://github.com/cloudhrm/auth) running.
 
 At first, potential employee should sign in using auth service and enter his CV details.
@@ -127,10 +129,61 @@ Find ID of the skill you want to add to yourself and add it by issuing mutation:
 
 ```graphql
 mutation {
-  addSkill(skillId:"your_skill_id_goes_here") { 
-  	id
+  addSkill(skillId: "your_skill_id_goes_here") {
+    id
   }
 }
 ```
 
 And check your profile now using me query above.
+
+Same way you can add Education, Experience and url links. Only difference here is,
+you provide full details for added items.
+
+```graphql
+mutation {
+  addLink(link: "http://your.site.com") {
+    id
+  }
+}
+```
+
+```graphql
+mutation {
+  addExpierience(
+    position: "Big boss"
+    company: "Very important company"
+    locationText: "High End, BigCity, USA"
+    locationId: 2345598
+    fromYear: 2005
+    toYear: 2009
+    current: false
+  ) {
+    id
+  }
+}
+```
+
+```graphql
+mutation {
+  addEducation(
+    fromYear: 2001
+    toYear: 2002
+    degree: "testdegree"
+    fieldOfStudy: "matheatics"
+    school: "testhighchool"
+    locationText: "Test High school, address, city"
+    locationId: 234555
+    notes: "Additional notes"
+    current: false
+  ) {
+    id
+  }
+}
+```
+
+Then check again your profile by queriing "me".
+
+#### Company boss posts vacancy
+
+#### Employee apply to vacancy

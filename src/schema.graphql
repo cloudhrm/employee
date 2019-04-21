@@ -7,6 +7,27 @@ type Query {
 type Mutation {
   createCV(firstName: String!, lastName: String!): Employee!
   addSkill(skillId: String!): EmployeeSkill!
+  addEducation(
+    fromYear: Int!
+    toYear: Int
+    degree: String
+    fieldOfStudy: String
+    school: String
+    locationText: String
+    locationId: Int
+    notes: String
+    current: Boolean!
+  ): Education!
+  addExpierience(
+    position: String!
+    company: String!
+    locationText: String
+    locationId: Int
+    fromYear: Int
+    toYear: Int
+    current: Boolean!
+  ): Experience!
+  addLink(link: String!): Link!
 }
 
 type Employee {
@@ -32,6 +53,7 @@ type EmployeeSkill {
   id: ID!
   employee: Employee!
   skill: Skill!
+  level: Int
   years: Int
 }
 
@@ -43,6 +65,7 @@ type Link {
 
 type Experience {
   id: ID!
+  employee: Employee!
   position: String!
   company: String!
   companyId: String
