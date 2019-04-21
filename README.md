@@ -17,8 +17,13 @@ docker-compose up -d prisma
 After start server:
 
 ```sh
+# deploy latest schema
 yarn prisma:deploy
+# [optional] generate javascript client
 yarn prisma:generate
+# fill in basic datasets
+yarn prisma:seed
+# start up for development
 yarn start:dev
 ```
 
@@ -79,6 +84,40 @@ mutation {
   createCV(firstName: "Firstname", lastName: "Lastname") {
     firstName
     lastName
+  }
+}
+```
+
+You can query that your record is created:
+
+```graphql
+query {
+  me {
+    firstName
+    skills {
+      skill {
+        name
+      }
+    }
+    links {
+      link
+    }
+    experience {
+      position
+    }
+    education {
+      school
+    }
+  }
+}
+```
+
+Next you probably would like to add your skills and education. Let's search for some:
+
+```graphql
+query {
+  skill(search: "ASP") {
+    name
   }
 }
 ```

@@ -1,5 +1,7 @@
 type Query {
   info: String!
+  me: Employee!
+  skill(search: String!): [Skill!]!
 }
 
 type Mutation {

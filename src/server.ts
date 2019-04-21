@@ -2,10 +2,12 @@ import { GraphQLServer } from 'graphql-yoga'
 import { prisma } from './generated/prisma-client'
 import { Query } from './resolvers/Query'
 import { Mutation } from './resolvers/Mutation'
+import { Employee } from './resolvers/Employee'
 
 const resolvers = {
   Query,
-  Mutation
+  Mutation,
+  Employee
 }
 
 require('dotenv').config()

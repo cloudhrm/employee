@@ -13,6 +13,9 @@ export function addAuthInstance(instance: string) {
 }
 
 export async function requestPublicKey(keyId: string): Promise<ReceivedKey> {
+  if (known_data_instances.length === 0) {
+    throw new Error('Errror No authorization API aiviable')
+  }
   const url =
     known_data_instances[
       Math.floor(Math.random() * known_data_instances.length)
