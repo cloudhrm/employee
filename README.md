@@ -1,5 +1,6 @@
 # API for HRM authorization
 
+[![CircleCI](https://circleci.com/gh/cloudhrm/employee.svg?style=svg)](https://circleci.com/gh/cloudhrm/employee)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/9c011f88df0e4792be032abcef6d8eda)](https://www.codacy.com/app/cloudhrm/employee?utm_source=github.com&utm_medium=referral&utm_content=cloudhrm/employee&utm_campaign=Badge_Grade)
 
 ## TODO
