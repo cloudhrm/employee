@@ -1,5 +1,7 @@
 # API for HRM authorization
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/9c011f88df0e4792be032abcef6d8eda)](https://www.codacy.com/app/cloudhrm/employee?utm_source=github.com&utm_medium=referral&utm_content=cloudhrm/employee&utm_campaign=Badge_Grade)
+
 ## TODO
 
 - implement permissions guards
@@ -21,7 +23,7 @@ yarn start:dev
 ```
 
 This will first generate code for prisma client, deploy it to prisma, and then start backend.
-You can access backend playground at - http://localhost:4000/
+You can access backend playground at - [http://localhost:4000/](http://localhost:4000/)
 
 ## Development notes
 
