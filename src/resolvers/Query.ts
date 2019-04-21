@@ -10,7 +10,10 @@ async function me(parent, args, context, info) {
 }
 
 async function skill(parent, args, context, info) {
-  return await context.prisma.skills({ where: { name_contains: args.search } })
+  return await context.prisma.skills({
+    limit: 50,
+    where: { name_contains: args.search }
+  })
 }
 
 export const Query = { info, me, skill }

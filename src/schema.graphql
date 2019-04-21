@@ -5,7 +5,8 @@ type Query {
 }
 
 type Mutation {
-  createCV(firstName: String!, lastName: String!): Employee
+  createCV(firstName: String!, lastName: String!): Employee!
+  addSkill(skillId: String!): EmployeeSkill!
 }
 
 type Employee {

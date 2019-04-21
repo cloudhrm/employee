@@ -3,11 +3,13 @@ import { prisma } from './generated/prisma-client'
 import { Query } from './resolvers/Query'
 import { Mutation } from './resolvers/Mutation'
 import { Employee } from './resolvers/Employee'
+import { EmployeeSkill } from './resolvers/EmployeeSkill'
 
 const resolvers = {
   Query,
   Mutation,
-  Employee
+  Employee,
+  EmployeeSkill
 }
 
 require('dotenv').config()

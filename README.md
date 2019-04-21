@@ -116,8 +116,21 @@ Next you probably would like to add your skills and education. Let's search for 
 
 ```graphql
 query {
-  skill(search: "ASP") {
+  skill(search: "Java") {
+    id
     name
   }
 }
 ```
+
+Find ID of the skill you want to add to yourself and add it by issuing mutation:
+
+```graphql
+mutation {
+  addSkill(skillId:"your_skill_id_goes_here") { 
+  	id
+  }
+}
+```
+
+And check your profile now using me query above.
