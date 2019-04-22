@@ -28,24 +28,25 @@ export async function requestPublicKey(keyId: string): Promise<ReceivedKey> {
   try {
     return await request(url, query)
   } catch (error) {
-    throw new Error('Errror while aquiring public key')
+    console.log(error)
+    throw new Error('Error while validating token Err:202')
   }
 }
 
-export async function getUserId(context) {
-  const Authorization = context.request.get('Authorization')
+export async function getUserId(prisma, request) {
+  const Authorization = request.get('Authorization')
   if (Authorization) {
     const token = Authorization.replace('Bearer ', '')
     const data = await jwt.decode(token)
     if (!data) {
-      throw new Error('Wrong token Err:201')
+      throw new Error('Error while validating token Err:201')
     }
-    let kp: KeyPair = await context.prisma.keyPair({ keyId: data['keyId'] })
+    let kp: KeyPair = await prisma.keyPair({ keyId: data['keyId'] })
     if (!kp) {
       try {
         // Retrieve public key if not exists
         const { key } = await requestPublicKey(data['keyId'])
-        kp = await context.prisma.createKeyPair({
+        kp = await prisma.createKeyPair({
           keyId: data['keyId'],
           public: key
         })

@@ -1,17 +1,17 @@
-async function skills(parent, args, context) {
-  return await context.prisma.employee({ id: parent.id }).skills()
+async function skills({ id }, args, { prisma }) {
+  return await prisma.employee({ id }).skills()
 }
 
-async function links(parent, args, context) {
-  return await context.prisma.employee({ id: parent.id }).links()
+async function links({ id }, args, { prisma }) {
+  return await prisma.employee({ id }).links()
 }
 
-async function experience(parent, args, context) {
-  return await context.prisma.employee({ id: parent.id }).experience()
+async function experience({ id }, args, { prisma }) {
+  return await prisma.employee({ id }).experience()
 }
 
-async function education(parent, args, context) {
-  return await context.prisma.employee({ id: parent.id }).education()
+async function education({ id }, args, { prisma }) {
+  return await prisma.employee({ id }).education()
 }
 
 export const Employee = { skills, links, experience, education }

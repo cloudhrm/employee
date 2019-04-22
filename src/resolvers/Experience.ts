@@ -1,5 +1,5 @@
-async function employee(parent, args, context) {
-  return await context.prisma.experience({ id: parent.id }).employee()
+async function employee({ id }, args, { prisma }) {
+  return await prisma.experience({ id }).employee()
 }
 
 export const Experience = { employee }

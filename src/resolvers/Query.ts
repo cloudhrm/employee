@@ -4,15 +4,15 @@ function info() {
   return 'Employee API 0.0.1'
 }
 
-async function me(parent, args, context, info) {
-  const userId = await getUserId(context)
-  return await context.prisma.employee({ userId })
+async function me(parent, args, { prisma, request }, info) {
+  const userId = await getUserId(prisma, request)
+  return await prisma.employee({ userId })
 }
 
-async function skill(parent, args, context, info) {
-  return await context.prisma.skills({
+async function skill(parent, { search }, { prisma }, info) {
+  return await prisma.skills({
     limit: 50,
-    where: { name_contains: args.search }
+    where: { name_contains: search }
   })
 }
 

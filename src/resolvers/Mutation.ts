@@ -1,62 +1,87 @@
 import { getUserId } from '../utils'
 
-async function createCV(parent, args, context, info) {
-  const userId = await getUserId(context)
-  const employee = await context.prisma.createEmployee({
-    firstName: args.firstName,
-    lastName: args.lastName,
+async function createCV(
+  parent,
+  { firstName, lastName },
+  { prisma, request },
+  info
+) {
+  const userId = await getUserId(prisma, request)
+  const employee = await prisma.createEmployee({
+    firstName,
+    lastName,
     userId
   })
   return employee
 }
 
-async function addSkill(parent, args, context, info) {
-  const userId = await getUserId(context)
-  const employee = await context.prisma.employee({ userId })
-  const employeeSkill = await context.prisma.createEmployeeSkill({
+async function addSkill(parent, { skillId }, { prisma, request }, info) {
+  const userId = await getUserId(prisma, request)
+  const employee = await prisma.employee({ userId })
+  const employeeSkill = await prisma.createEmployeeSkill({
     employee: { connect: { id: employee.id } },
-    skill: { connect: { id: args.skillId } }
+    skill: { connect: { id: skillId } }
   })
   return employeeSkill
 }
 
-async function addEducation(parent, args, context, info) {
-  const userId = await getUserId(context)
-  const employee = await context.prisma.employee({ userId })
-  return await context.prisma.createEducation({
-    fromYear: args.fromYear,
-    toYear: args.toYear,
-    degree: args.degree,
-    fieldOfStudy: args.fieldOfStudy,
-    school: args.school,
-    locationText: args.locationText,
-    locationId: args.locationId,
-    notes: args.notes,
-    current: args.current,
+async function addEducation(
+  parent,
+  {
+    fromYear,
+    toYear,
+    degree,
+    fieldOfStudy,
+    school,
+    locationText,
+    locationId,
+    notes,
+    current
+  },
+  { prisma, request },
+  info
+) {
+  const userId = await getUserId(prisma, request)
+  const employee = await prisma.employee({ userId })
+  return await prisma.createEducation({
+    fromYear,
+    toYear,
+    degree,
+    fieldOfStudy,
+    school,
+    locationText,
+    locationId,
+    notes,
+    current,
     employee: { connect: { id: employee.id } }
   })
 }
 
-async function addExpierience(parent, args, context, info) {
-  const userId = await getUserId(context)
-  const employee = await context.prisma.employee({ userId })
-  return await context.prisma.createExperience({
-    position: args.position,
-    company: args.company,
-    locationText: args.locationText,
-    locationId: args.locationId,
-    fromYear: args.fromYear,
-    toYear: args.toYear,
-    current: args.current,
+async function addExpierience(
+  parent,
+  { position, company, locationText, locationId, fromYear, toYear, current },
+  { prisma, request },
+  info
+) {
+  const userId = await getUserId(prisma, request)
+  const employee = await prisma.employee({ userId })
+  return await prisma.createExperience({
+    position,
+    company,
+    locationText,
+    locationId,
+    fromYear,
+    toYear,
+    current,
     employee: { connect: { id: employee.id } }
   })
 }
 
-async function addLink(parent, args, context, info) {
-  const userId = await getUserId(context)
-  const employee = await context.prisma.employee({ userId })
-  return await context.prisma.createLink({
-    link: args.link,
+async function addLink(parent, { link }, { prisma, request }, info) {
+  const userId = await getUserId(prisma, request)
+  const employee = await prisma.employee({ userId })
+  return await prisma.createLink({
+    link,
     employee: { connect: { id: employee.id } }
   })
 }
