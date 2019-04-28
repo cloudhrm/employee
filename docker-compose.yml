@@ -12,7 +12,7 @@ services:
       - PRISMA_PORT=4466
       - PRISMA_PROT=http
       - PRISMA_PATH=/employee/dev
-	  - CONSUL_HOST=consul
+      - CONSUL_HOST=consul
     links:
       - 'prisma'
     ports:
