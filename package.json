@@ -12,7 +12,9 @@
     "prisma:generate": "prisma generate",
     "prisma:reset": "prisma reset",
     "prisma:seed": "prisma seed",
-    "test": "prisma reset -f && jest --config ./test/jest-e2e.json"
+    "test": "prisma reset -f && jest --config ./test/jest-e2e.json",
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
   },
   "dependencies": {
     "bcrypt": "^3.0.5",
@@ -22,7 +24,8 @@
     "graphql-yoga": "^1.17.4",
     "jsonwebtoken": "^8.5.1",
     "prisma": "^1.29.2",
-    "prisma-client-lib": "^1.29.2"
+    "prisma-client-lib": "^1.29.2",
+    "snyk": "^1.190.0"
   },
   "devDependencies": {
     "@types/bcrypt": "^3.0.0",
@@ -35,5 +38,6 @@
     "ts-jest": "^24.0.2",
     "ts-node-dev": "^1.0.0-pre.32",
     "typescript": "^3.4.5"
-  }
+  },
+  "snyk": true
 }
